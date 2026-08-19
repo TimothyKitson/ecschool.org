@@ -35,8 +35,7 @@
 <header class="site-header">
   <div class="header-top">
     <a class="brand" href="/">
-      <img src="/assets/img/logo.png" alt="" width="300" height="300">
-      <span class="brand-name">Englewood<br>Christian School</span>
+      <img src="/assets/img/logo.png" alt="Englewood Christian School" width="300" height="300">
     </a>
     <div style="display:flex;align-items:center;gap:16px">
       <a class="header-tel" href="tel:+19412085773">(941) 208 - 5773</a>
@@ -274,6 +273,60 @@
       b.setAttribute('aria-expanded',String(!open));
     });
   });
+
+  // Overflow nav: keep the bar to one row by moving whatever does not fit
+  // into the "More" dropdown, the way the original site behaved. Items are
+  // moved as real DOM nodes so they stay keyboard reachable and crawlable.
+  (function(){
+    var list=document.querySelector('.nav-list');
+    var more=document.querySelector('.has-menu');
+    if(!list||!more) return;
+    var submenu=more.querySelector('.submenu');
+    var top=[].slice.call(list.children).filter(function(li){return li!==more;});
+    // Remember where each borrowed item came from so it can go back.
+    var borrowed=[];
+    // The pages that live under "More" permanently, so the button is only
+    // ever removed if there is genuinely nothing behind it.
+    var baseCount=submenu.children.length;
+    function reflow(){
+      // Put every borrowed item back before measuring a fresh layout.
+      while(borrowed.length){
+        var b=borrowed.pop();
+        b.li.hidden=false;
+        submenu.removeChild(b.clone);
+      }
+      // Mobile stacks the nav vertically, so everything fits as-is.
+      if(getComputedStyle(list).flexDirection==='column'){
+        more.hidden=baseCount===0;
+        return;
+      }
+      more.hidden=baseCount===0;
+      var cs=getComputedStyle(list);
+      var avail=list.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+      var widths=top.map(function(li){li.hidden=false;return li.offsetWidth;});
+      // "More" is part of the row whenever it has anything behind it, so its
+      // width counts against the budget from the start.
+      var moreW=more.hidden?0:more.offsetWidth;
+      var used=0, cut=top.length;
+      for(var i=0;i<top.length;i++){
+        if(used+widths[i]+moreW>avail){ cut=i; break; }
+        used+=widths[i];
+      }
+      if(cut===top.length) return;              // all top-level items fit
+      for(var k=cut;k<top.length;k++){
+        var li=top[k], clone=li.cloneNode(true);
+        // Overflowed items go above the permanent "More" pages, preserving order.
+        submenu.insertBefore(clone,submenu.children[k-cut]||submenu.children[0]||null);
+        li.hidden=true;
+        borrowed.push({li:li,clone:clone});
+      }
+      more.hidden=false;
+    }
+    reflow();
+    var t;
+    addEventListener('resize',function(){clearTimeout(t);t=setTimeout(reflow,120);});
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(reflow);
+  })();
   document.addEventListener('click',function(){
     document.querySelectorAll('.has-menu[data-open=true]').forEach(function(li){
       li.setAttribute('data-open','false');
