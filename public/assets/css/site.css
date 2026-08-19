@@ -181,7 +181,7 @@ table{border-collapse:collapse;width:100%}
 
 /* Staff cards */
 .person{text-align:center}
-.person h3{font-family:var(--sans);font-weight:400;font-size:20px;margin:0 0 14px;color:var(--ink)}
+.person h2{font-family:var(--sans);font-weight:400;font-size:20px;margin:0 0 14px;color:var(--ink)}
 .person img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%}
 .person .role{font-size:16px;color:var(--ink-soft);margin:14px 0 0}
 
@@ -218,11 +218,6 @@ table{border-collapse:collapse;width:100%}
 /* ---------- Embeds (JotForm / Wufoo / Vimeo) ---------- */
 .embed{max-width:900px;margin:0 auto}
 .embed iframe{width:100%;border:0;display:block}
-.video{position:relative;padding-top:56.25%;background:#000;margin:0 0 8px}
-.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.video-portrait{padding-top:177.78%}
-.video-item h3{font-size:17px;margin:12px 0 4px}
-.video-item p{font-size:14px;color:var(--ink-soft);margin:0}
 
 /* ---------- Gallery ---------- */
 .gallery{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));list-style:none;padding:0;margin:0}
