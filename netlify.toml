@@ -14,23 +14,41 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-# Fingerprint-free assets: long cache, they are replaced by name when updated.
+# HTML must always be revalidated so a new deploy is picked up immediately.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# build.py emits site.<hash>.css, so a change always produces a new URL and
+# this cache can safely be long-lived.
+[[headers]]
+  for = "/assets/css/site.*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The unhashed source stylesheet is not referenced by any page; never let a
+# browser hold on to it.
+[[headers]]
+  for = "/assets/css/site.css"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Font filenames are tied to their contents and never change.
 [[headers]]
   for = "/assets/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Photos keep their filenames when replaced, so keep the window short.
 [[headers]]
   for = "/assets/img/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=3600"
 
-[[headers]]
-  for = "/assets/css/*"
-  [headers.values]
-    Cache-Control = "public, max-age=86400"
-
+# The handbook, calendar and menus are replaced in place and families need the
+# current version, so always revalidate. ETags keep that cheap.
 [[headers]]
   for = "/assets/pdf/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "no-cache"

@@ -9,7 +9,7 @@ The generated files in public/ are committed to the repo, so Netlify serves
 them directly with no build step. Re-run this after editing anything in
 content/ or templates/, then commit the result.
 """
-import os, re, shutil, sys
+import hashlib, os, re, shutil, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CONTENT = os.path.join(ROOT, 'content')
@@ -133,8 +133,29 @@ def render_nav(current_url):
     </nav>'''
 
 
+def hashed_css():
+    """Copy site.css to site.<hash>.css and return its URL.
+
+    The stylesheet is served with a one-year immutable cache, so its name has
+    to change whenever its contents do — otherwise browsers keep serving an
+    old stylesheet against new HTML, which breaks the layout.
+    """
+    css_dir = os.path.join(PUBLIC, 'assets', 'css')
+    src = os.path.join(css_dir, 'site.css')
+    data = open(src, 'rb').read()
+    digest = hashlib.sha256(data).hexdigest()[:10]
+    name = f'site.{digest}.css'
+    # drop hashed builds from previous runs
+    for f in os.listdir(css_dir):
+        if re.fullmatch(r'site\.[0-9a-f]{10}\.css', f) and f != name:
+            os.remove(os.path.join(css_dir, f))
+    open(os.path.join(css_dir, name), 'wb').write(data)
+    return '/assets/css/' + name
+
+
 def build():
     base = open(os.path.join(TEMPLATES, 'base.html'), encoding='utf-8').read()
+    css_url = hashed_css()
     built = 0
     for slug, (title, desc) in PAGES.items():
         src = os.path.join(CONTENT, slug + '.html')
@@ -145,6 +166,7 @@ def build():
         cur = url_for(slug)
         full_title = title if slug == 'index' else f'{title} | {SITE_NAME}'
         html = (base
+                .replace('{{CSS}}', css_url)
                 .replace('{{NAV}}', render_nav(cur))
                 .replace('{{FOOTER_LINKS}}', render_footer_links(cur))
                 .replace('{{TITLE}}', full_title)
@@ -160,7 +182,7 @@ def build():
         open(out, 'w', encoding='utf-8').write(html)
         built += 1
         print(f'  built public/{slug}.html')
-    print(f'\n{built} pages written to public/')
+    print(f'\n{built} pages written to public/  (css: {css_url})')
 
 
 if __name__ == '__main__':
