@@ -1,0 +1,9 @@
+# Legacy GoDaddy member-area routes — the Sign In / My Account feature does not
+# exist on the new site, so send these to the homepage.
+/m/*            /            301
+/covid-19       /covid-19-updates   301
+/staffulty      /staff       301
+/faculty        /staff       301
+/apply          /registration 301
+/jobs           /employment  301
+/menu           /lunch-menu  301

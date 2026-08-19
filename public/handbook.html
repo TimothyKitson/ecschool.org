@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Family Handbook | Englewood Christian School</title>
+<meta name="description" content="Download the Englewood Christian School Family Handbook for 2026-27.">
+<link rel="canonical" href="https://ecschool.org/handbook">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="icon" href="/assets/img/logo.png">
+<link rel="apple-touch-icon" href="/assets/img/logo.png">
+<link rel="preload" href="/assets/fonts/bitter-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#0544a4">
+<meta property="og:site_name" content="Englewood Christian School">
+<meta property="og:title" content="Family Handbook | Englewood Christian School">
+<meta property="og:description" content="Download the Englewood Christian School Family Handbook for 2026-27.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ecschool.org/handbook">
+<meta property="og:image" content="https://ecschool.org/assets/img/hero-classroom.jpg">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"School",
+  "name":"Englewood Christian School",
+  "url":"https://ecschool.org",
+  "telephone":"+1-941-208-5773",
+  "address":{"@type":"PostalAddress","streetAddress":"571 Medical Dr","addressLocality":"Englewood","addressRegion":"FL","postalCode":"34223","addressCountry":"US"},
+  "openingHours":"Mo,Tu,We,Th,Fr 07:45-15:30"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="header-top">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo.png" alt="" width="300" height="300">
+      <span class="brand-name">Englewood<br>Christian School</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:16px">
+      <a class="header-tel" href="tel:+19412085773">(941) 208 - 5773</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <b></b><span>Menu</span>
+      </button>
+    </div>
+  </div>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/lunch-menu">Lunch Menu</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+        <li><a href="/students">Students</a></li>
+        <li><a href="/handbook" aria-current="page">Handbook</a></li>
+        <li><a href="/staff">Staff</a></li>
+        <li><a href="/registration">Registration</a></li>
+        <li><a href="/dress-code">Dress Code</a></li>
+        <li><a href="/report-cards">Report Cards</a></li>
+        <li><a href="/van-schedules">Van Schedules</a></li>
+        <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
+        <li><a href="/reporting">Reporting</a></li>
+        <li class="has-menu" data-open="false">
+          <button type="button" aria-expanded="false" aria-controls="more-menu">More</button>
+          <ul class="submenu" id="more-menu">
+            <li><a href="/employment">Employment</a></li>
+            <li><a href="/college-info">College Info</a></li>
+            <li><a href="/stem-competition">STEM Competition</a></li>
+            <li><a href="/spirit-week-contests">Spirit Week Contests</a></li>
+            <li><a href="/end-of-year-letter">End of Year Letter</a></li>
+            <li><a href="/covid-19-updates">COVID-19 Updates</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+</header>
+
+<main id="main">
+<section class="section">
+  <div class="wrap">
+    <h1 class="page-title">Family Handbook 2026-27</h1>
+    <p class="lede">Our Family Handbook covers school policies, expectations, and everything families need to know for the year.</p>
+    <p style="text-align:center"><a class="btn" href="/assets/pdf/2026-2027-Handbook.pdf" target="_blank" rel="noopener">Download Handbook (PDF)</a></p>
+    <div class="embed" style="margin-top:40px">
+      <iframe src="/assets/pdf/2026-2027-Handbook.pdf#view=FitH" title="Family Handbook 2026-27" height="900" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div>
+        <h2>Englewood Christian School</h2>
+        <address>571 Medical Dr, Englewood, FL 34223, US</address>
+        <p><a href="tel:+19412085773">(941) 208-5773</a></p>
+      </div>
+      <div>
+        <h2>Hours</h2>
+        <p>Monday - Friday: 7:45 am - 3:30 pm</p>
+        <p>Saturday - Sunday: Closed</p>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="footer-bar">
+  <div class="wrap">
+    <span>Copyright &copy; 2026 Englewood Christian School &mdash; All Rights Reserved.</span>
+    <span><a href="tel:+19412085773">(941) 208-5773</a></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Mobile nav toggle
+  var t=document.querySelector('.nav-toggle'), n=document.getElementById('site-nav');
+  if(t&&n){t.addEventListener('click',function(){
+    var open=n.getAttribute('data-open')==='true';
+    n.setAttribute('data-open',String(!open));
+    t.setAttribute('aria-expanded',String(!open));
+  });}
+  // "More" dropdown
+  document.querySelectorAll('.has-menu').forEach(function(li){
+    var b=li.querySelector('button');
+    b.addEventListener('click',function(e){
+      e.stopPropagation();
+      var open=li.getAttribute('data-open')==='true';
+      li.setAttribute('data-open',String(!open));
+      b.setAttribute('aria-expanded',String(!open));
+    });
+  });
+  document.addEventListener('click',function(){
+    document.querySelectorAll('.has-menu[data-open=true]').forEach(function(li){
+      li.setAttribute('data-open','false');
+      li.querySelector('button').setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      document.querySelectorAll('.has-menu[data-open=true]').forEach(function(li){
+        li.setAttribute('data-open','false');
+        li.querySelector('button').setAttribute('aria-expanded','false');
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>
