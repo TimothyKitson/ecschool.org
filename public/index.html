@@ -33,73 +33,67 @@
 <a class="skip" href="#main">Skip to main content</a>
 
 <header class="site-header">
-  <div class="header-top">
+  <div class="header-row">
     <a class="brand" href="/">
       <img src="/assets/img/logo.png" alt="Englewood Christian School" width="300" height="300">
     </a>
-    <div style="display:flex;align-items:center;gap:16px">
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/" aria-current="page">Home</a></li>
+        <li><a href="/lunch-menu">Lunch Menu</a></li>
+        <li><a href="/about">About</a></li>
+        <li class="has-menu" data-open="false">
+          <button type="button" aria-expanded="false" aria-controls="more-menu">More</button>
+          <ul class="submenu" id="more-menu">
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/students">Students</a></li>
+            <li><a href="/handbook">Handbook</a></li>
+            <li><a href="/staff">Staff</a></li>
+            <li><a href="/registration">Registration</a></li>
+            <li><a href="/dress-code">Dress Code</a></li>
+            <li><a href="/report-cards">Report Cards</a></li>
+            <li><a href="/van-schedules">Van Schedules</a></li>
+            <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
+            <li><a href="/reporting">Reporting</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-right">
       <a class="header-tel" href="tel:+19412085773">(941) 208 - 5773</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <b></b><span>Menu</span>
       </button>
     </div>
   </div>
-  <nav class="site-nav" id="site-nav" aria-label="Main">
-      <ul class="nav-list">
-        <li><a href="/" aria-current="page">Home</a></li>
-        <li><a href="/lunch-menu">Lunch Menu</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/calendar">Calendar</a></li>
-        <li><a href="/students">Students</a></li>
-        <li><a href="/handbook">Handbook</a></li>
-        <li><a href="/staff">Staff</a></li>
-        <li><a href="/registration">Registration</a></li>
-        <li><a href="/dress-code">Dress Code</a></li>
-        <li><a href="/report-cards">Report Cards</a></li>
-        <li><a href="/van-schedules">Van Schedules</a></li>
-        <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
-        <li><a href="/reporting">Reporting</a></li>
-        <li class="has-menu" data-open="false">
-          <button type="button" aria-expanded="false" aria-controls="more-menu">More</button>
-          <ul class="submenu" id="more-menu">
-            <li><a href="/employment">Employment</a></li>
-            <li><a href="/college-info">College Info</a></li>
-            <li><a href="/stem-competition">STEM Competition</a></li>
-            <li><a href="/spirit-week-contests">Spirit Week Contests</a></li>
-            <li><a href="/end-of-year-letter">End of Year Letter</a></li>
-            <li><a href="/covid-19-updates">COVID-19 Updates</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
 </header>
 
 <main id="main">
-<section class="hero" style="background-image:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url(/assets/img/hero-classroom.jpg)">
+<section class="hero" style="background-image:url(/assets/img/hero-classroom.jpg)">
   <div class="hero-medallion">
     <h1>Welcome to Englewood Christian School</h1>
   </div>
 </section>
 
-<section class="section section-photo-blue" style="--photo:url(/assets/img/photo-32.jpg)">
+<section class="section section-blue">
   <div class="wrap">
     <h2 class="section-title">Announcements</h2>
     <div class="announce">
-      <figure class="announce-photo">
-        <img src="/assets/img/announcement.jpg" alt="Englewood Christian School students at the Kennedy Space Center" width="1600" height="1337" loading="lazy">
-      </figure>
-      <h3>2026 - 2027 School Year</h3>
-      <p>Orientation &mdash; August 4th &amp; 6th</p>
-      <p>First Day &mdash; August 10th</p>
-      <p style="margin-top:24px"><a class="btn btn-light" href="/calendar">Calendar</a></p>
+      <img src="/assets/img/announcement.jpg" alt="Englewood Christian School students at the Kennedy Space Center" width="1600" height="1337" loading="lazy">
+      <div class="announce-text">
+        <h3>2026 - 2027 School Year</h3>
+        <p>Orientation - August 4th &amp; 6th</p>
+        <p>First Day - August 10th</p>
+        <p class="announce-cta"><a class="btn btn-light" href="/calendar">Calendar</a></p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="strip">
+<section class="strip" style="background-image:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.38)),url(/assets/img/photo-32.jpg)">
   <div class="wrap strip-inner">
     <h2>We provide transportation to/from Port Charlotte, North Port, Englewood, and Venice.</h2>
-    <a class="btn btn-light" href="/van-schedules">Schedule</a>
+    <a class="btn" href="/van-schedules">Schedule</a>
   </div>
 </section>
 
@@ -161,6 +155,9 @@
         <p>Saturday - Sunday: Closed</p>
       </div>
     </div>
+    <nav class="footer-nav" aria-label="More information">
+      <ul class="footer-links"><li><a href="/employment">Employment</a></li><li><a href="/college-info">College Info</a></li><li><a href="/stem-competition">STEM Competition</a></li><li><a href="/spirit-week-contests">Spirit Week Contests</a></li><li><a href="/end-of-year-letter">End of Year Letter</a></li><li><a href="/covid-19-updates">COVID-19 Updates</a></li></ul>
+    </nav>
   </div>
 </footer>
 <div class="footer-bar">
@@ -172,6 +169,20 @@
 
 <script>
 (function(){
+  // Header expands at the top of the page and collapses once scrolled.
+  var hdr=document.querySelector('.site-header');
+  if(hdr){
+    var compact=null;
+    function onScroll(){
+      var want=(window.scrollY||document.documentElement.scrollTop)>24;
+      if(want===compact) return;              // only touch the DOM on a change
+      compact=want;
+      hdr.classList.toggle('is-compact',want);
+    }
+    onScroll();
+    addEventListener('scroll',onScroll,{passive:true});
+  }
+
   // Mobile nav toggle
   var t=document.querySelector('.nav-toggle'), n=document.getElementById('site-nav');
   if(t&&n){t.addEventListener('click',function(){

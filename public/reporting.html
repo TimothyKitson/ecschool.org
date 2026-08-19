@@ -33,51 +33,54 @@
 <a class="skip" href="#main">Skip to main content</a>
 
 <header class="site-header">
-  <div class="header-top">
+  <div class="header-row">
     <a class="brand" href="/">
       <img src="/assets/img/logo.png" alt="Englewood Christian School" width="300" height="300">
     </a>
-    <div style="display:flex;align-items:center;gap:16px">
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/lunch-menu">Lunch Menu</a></li>
+        <li><a href="/about">About</a></li>
+        <li class="has-menu" data-open="false">
+          <button type="button" aria-expanded="false" aria-controls="more-menu" aria-current="true">More</button>
+          <ul class="submenu" id="more-menu">
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/students">Students</a></li>
+            <li><a href="/handbook">Handbook</a></li>
+            <li><a href="/staff">Staff</a></li>
+            <li><a href="/registration">Registration</a></li>
+            <li><a href="/dress-code">Dress Code</a></li>
+            <li><a href="/report-cards">Report Cards</a></li>
+            <li><a href="/van-schedules">Van Schedules</a></li>
+            <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
+            <li><a href="/reporting" aria-current="page">Reporting</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-right">
       <a class="header-tel" href="tel:+19412085773">(941) 208 - 5773</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <b></b><span>Menu</span>
       </button>
     </div>
   </div>
-  <nav class="site-nav" id="site-nav" aria-label="Main">
-      <ul class="nav-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/lunch-menu">Lunch Menu</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/calendar">Calendar</a></li>
-        <li><a href="/students">Students</a></li>
-        <li><a href="/handbook">Handbook</a></li>
-        <li><a href="/staff">Staff</a></li>
-        <li><a href="/registration">Registration</a></li>
-        <li><a href="/dress-code">Dress Code</a></li>
-        <li><a href="/report-cards">Report Cards</a></li>
-        <li><a href="/van-schedules">Van Schedules</a></li>
-        <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
-        <li><a href="/reporting" aria-current="page">Reporting</a></li>
-        <li class="has-menu" data-open="false">
-          <button type="button" aria-expanded="false" aria-controls="more-menu">More</button>
-          <ul class="submenu" id="more-menu">
-            <li><a href="/employment">Employment</a></li>
-            <li><a href="/college-info">College Info</a></li>
-            <li><a href="/stem-competition">STEM Competition</a></li>
-            <li><a href="/spirit-week-contests">Spirit Week Contests</a></li>
-            <li><a href="/end-of-year-letter">End of Year Letter</a></li>
-            <li><a href="/covid-19-updates">COVID-19 Updates</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
 </header>
 
 <main id="main">
 <section class="section">
   <div class="wrap">
-    <h1 class="page-title">Standards of Ethical Conduct</h1>
+    <div class="embed" style="max-width:726px">
+      <p class="form-note" style="margin:0 0 12px"><a href="/assets/pdf/Educator-misconduct.pdf" target="_blank" rel="noopener">Download PDF &rsaquo;</a></p>
+      <iframe src="/assets/pdf/Educator-misconduct.pdf#view=FitH" title="Reporting misconduct by instructional personnel and administrators" height="420" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="section section-wash">
+  <div class="wrap">
+    <h1 class="section-title">Standards of Ethical Conduct Englewood Christian School</h1>
     <div class="prose">
       <ol>
         <li>Our school values the worth and dignity of every person, the pursuit of truth, devotion to excellence, acquisition of knowledge, and the nurture of democratic citizenship. Essential to the achievement of these standards are the freedom to learn and to teach and the guarantee of equal opportunity for all.</li>
@@ -132,21 +135,12 @@
   </div>
 </section>
 
-<section class="section section-wash">
+<section class="section">
   <div class="wrap">
-    <h2 class="section-title">Posters &amp; Notices</h2>
-    <ul class="tiles" style="max-width:900px;margin:0 auto">
-      <li class="tile">
-        <h3>Reporting Educator Misconduct</h3>
-        <p>Notice on reporting misconduct by instructional personnel and administrators.</p>
-        <a class="btn" href="/assets/pdf/Educator-misconduct.pdf" target="_blank" rel="noopener">View PDF</a>
-      </li>
-      <li class="tile">
-        <h3>Reporting Child Abuse</h3>
-        <p>Poster on recognizing and reporting child abuse, abandonment, or neglect.</p>
-        <a class="btn" href="/assets/pdf/poster-on-child-abuse.pdf" target="_blank" rel="noopener">View PDF</a>
-      </li>
-    </ul>
+    <div class="embed" style="max-width:726px">
+      <p class="form-note" style="margin:0 0 12px"><a href="/assets/pdf/poster-on-child-abuse.pdf" target="_blank" rel="noopener">Download PDF &rsaquo;</a></p>
+      <iframe src="/assets/pdf/poster-on-child-abuse.pdf#view=FitH" title="Reporting child abuse, abandonment or neglect" height="420" loading="lazy"></iframe>
+    </div>
   </div>
 </section>
 
@@ -166,6 +160,9 @@
         <p>Saturday - Sunday: Closed</p>
       </div>
     </div>
+    <nav class="footer-nav" aria-label="More information">
+      <ul class="footer-links"><li><a href="/employment">Employment</a></li><li><a href="/college-info">College Info</a></li><li><a href="/stem-competition">STEM Competition</a></li><li><a href="/spirit-week-contests">Spirit Week Contests</a></li><li><a href="/end-of-year-letter">End of Year Letter</a></li><li><a href="/covid-19-updates">COVID-19 Updates</a></li></ul>
+    </nav>
   </div>
 </footer>
 <div class="footer-bar">
@@ -177,6 +174,20 @@
 
 <script>
 (function(){
+  // Header expands at the top of the page and collapses once scrolled.
+  var hdr=document.querySelector('.site-header');
+  if(hdr){
+    var compact=null;
+    function onScroll(){
+      var want=(window.scrollY||document.documentElement.scrollTop)>24;
+      if(want===compact) return;              // only touch the DOM on a change
+      compact=want;
+      hdr.classList.toggle('is-compact',want);
+    }
+    onScroll();
+    addEventListener('scroll',onScroll,{passive:true});
+  }
+
   // Mobile nav toggle
   var t=document.querySelector('.nav-toggle'), n=document.getElementById('site-nav');
   if(t&&n){t.addEventListener('click',function(){

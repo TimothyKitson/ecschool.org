@@ -33,18 +33,18 @@
 <a class="skip" href="#main">Skip to main content</a>
 
 <header class="site-header">
-  <div class="header-top">
+  <div class="header-row">
     <a class="brand" href="/">
       <img src="/assets/img/logo.png" alt="Englewood Christian School" width="300" height="300">
     </a>
-    <div style="display:flex;align-items:center;gap:16px">
+    {{NAV}}
+    <div class="header-right">
       <a class="header-tel" href="{{PHONE_HREF}}">{{PHONE_TEXT}}</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <b></b><span>Menu</span>
       </button>
     </div>
   </div>
-  {{NAV}}
 </header>
 
 <main id="main">
@@ -65,6 +65,9 @@
         <p>Saturday - Sunday: Closed</p>
       </div>
     </div>
+    <nav class="footer-nav" aria-label="More information">
+      {{FOOTER_LINKS}}
+    </nav>
   </div>
 </footer>
 <div class="footer-bar">
@@ -76,6 +79,20 @@
 
 <script>
 (function(){
+  // Header expands at the top of the page and collapses once scrolled.
+  var hdr=document.querySelector('.site-header');
+  if(hdr){
+    var compact=null;
+    function onScroll(){
+      var want=(window.scrollY||document.documentElement.scrollTop)>24;
+      if(want===compact) return;              // only touch the DOM on a change
+      compact=want;
+      hdr.classList.toggle('is-compact',want);
+    }
+    onScroll();
+    addEventListener('scroll',onScroll,{passive:true});
+  }
+
   // Mobile nav toggle
   var t=document.querySelector('.nav-toggle'), n=document.getElementById('site-nav');
   if(t&&n){t.addEventListener('click',function(){

@@ -33,125 +33,169 @@
 <a class="skip" href="#main">Skip to main content</a>
 
 <header class="site-header">
-  <div class="header-top">
+  <div class="header-row">
     <a class="brand" href="/">
       <img src="/assets/img/logo.png" alt="Englewood Christian School" width="300" height="300">
     </a>
-    <div style="display:flex;align-items:center;gap:16px">
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/lunch-menu">Lunch Menu</a></li>
+        <li><a href="/about">About</a></li>
+        <li class="has-menu" data-open="false">
+          <button type="button" aria-expanded="false" aria-controls="more-menu" aria-current="true">More</button>
+          <ul class="submenu" id="more-menu">
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/students">Students</a></li>
+            <li><a href="/handbook">Handbook</a></li>
+            <li><a href="/staff">Staff</a></li>
+            <li><a href="/registration">Registration</a></li>
+            <li><a href="/dress-code">Dress Code</a></li>
+            <li><a href="/report-cards">Report Cards</a></li>
+            <li><a href="/van-schedules" aria-current="page">Van Schedules</a></li>
+            <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
+            <li><a href="/reporting">Reporting</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-right">
       <a class="header-tel" href="tel:+19412085773">(941) 208 - 5773</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <b></b><span>Menu</span>
       </button>
     </div>
   </div>
-  <nav class="site-nav" id="site-nav" aria-label="Main">
-      <ul class="nav-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/lunch-menu">Lunch Menu</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/calendar">Calendar</a></li>
-        <li><a href="/students">Students</a></li>
-        <li><a href="/handbook">Handbook</a></li>
-        <li><a href="/staff">Staff</a></li>
-        <li><a href="/registration">Registration</a></li>
-        <li><a href="/dress-code">Dress Code</a></li>
-        <li><a href="/report-cards">Report Cards</a></li>
-        <li><a href="/van-schedules" aria-current="page">Van Schedules</a></li>
-        <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
-        <li><a href="/reporting">Reporting</a></li>
-        <li class="has-menu" data-open="false">
-          <button type="button" aria-expanded="false" aria-controls="more-menu">More</button>
-          <ul class="submenu" id="more-menu">
-            <li><a href="/employment">Employment</a></li>
-            <li><a href="/college-info">College Info</a></li>
-            <li><a href="/stem-competition">STEM Competition</a></li>
-            <li><a href="/spirit-week-contests">Spirit Week Contests</a></li>
-            <li><a href="/end-of-year-letter">End of Year Letter</a></li>
-            <li><a href="/covid-19-updates">COVID-19 Updates</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
 </header>
 
 <main id="main">
+<h1 class="sr-only">Van Schedules</h1>
+
 <section class="section">
   <div class="wrap">
-    <h1 class="page-title">Van Schedules</h1>
-    <p class="lede">We provide transportation to and from Port Charlotte, North Port, Englewood, and Venice.</p>
+    <h2 class="section-title">Van Route (Maroon Van)</h2>
+    <div class="band-narrow route">
+      <h3>Morning</h3>
+      <ul class="stops">
+        <li>
+          <span class="stop"><b>McDonald&rsquo;s</b><em>S. Gulf Cove &amp; 776 Port Charlotte</em></span>
+          <span class="time">Pulling out at 6:50am</span>
+        </li>
+        <li>
+          <span class="stop"><b>Aldi</b><em>4100 S Mccall Road Englewood</em></span>
+          <span class="time">Pulling out at 7:00am</span>
+        </li>
+        <li>
+          <span class="stop"><b>Aldi</b><em>1254 Jacaranda Blvd Venice</em></span>
+          <span class="time">Pulling out at 7:18am</span>
+        </li>
+        <li>
+          <span class="stop"><b>Saving Grace Bible Church</b><em>2550 Englewood Road Englewood</em></span>
+          <span class="time">Pulling out at 7:35am</span>
+        </li>
+        <li>
+          <span class="stop"><b>School</b></span>
+          <span class="time">8:00</span>
+        </li>
+      </ul>
+      <hr class="route-rule">
+      <h3>Afternoon</h3>
+      <ul class="stops">
+        <li>
+          <span class="stop"><b>Saving Grace Bible Church</b><em>2550 Englewood Road Englewood</em></span>
+          <span class="time">3:18</span>
+        </li>
+        <li>
+          <span class="stop"><b>Aldi</b><em>1254 Jacaranda Blvd Venice</em></span>
+          <span class="time">3:33</span>
+        </li>
+        <li>
+          <span class="stop"><b>Aldi</b><em>4100 S Mccall Road Englewood</em></span>
+          <span class="time">3:48</span>
+        </li>
+        <li>
+          <span class="stop"><b>McDonald&rsquo;s</b><em>S. Gulf Cove &amp; 776 Port Charlotte</em></span>
+          <span class="time">3:55</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    <div class="prose" style="max-width:900px">
+<section class="section section-wash">
+  <div class="wrap">
+    <h2 class="section-title">Van Route (Red Van)</h2>
+    <div class="band-narrow route">
+      <h3>Morning</h3>
+      <ul class="stops">
+        <li>
+          <span class="stop"><b>Gulf Station Easy Street</b><em>3666 Tamiami Trail Port Charlotte</em></span>
+          <span class="time">7:00</span>
+        </li>
+        <li>
+          <span class="stop"><b>Mid County Regional Library</b><em>2050 Forrest Nelson Blvd Port Charlotte</em></span>
+          <span class="time">7:05</span>
+        </li>
+        <li>
+          <span class="stop"><b>Perkins</b><em>6001 S. Salford Blvd North Port</em></span>
+          <span class="time">7:20</span>
+        </li>
+        <li>
+          <span class="stop"><b>School</b></span>
+          <span class="time">8:00</span>
+        </li>
+      </ul>
+      <hr class="route-rule">
+      <h3>Afternoon</h3>
+      <ul class="stops">
+        <li>
+          <span class="stop"><b>Perkins</b><em>6001 S. Salford Blvd North Port</em></span>
+          <span class="time">3:30</span>
+        </li>
+        <li>
+          <span class="stop"><b>Easy Street</b><em>3666 Tamiami Trail Port Charlotte</em></span>
+          <span class="time">3:50</span>
+        </li>
+        <li>
+          <span class="stop"><b>Mid County Regional Library</b><em>2050 Forrest Nelson Blvd Port Charlotte</em></span>
+          <span class="time">3:40</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-      <section class="route">
-        <h2>Van Route (Maroon Van)</h2>
-        <h3>Morning</h3>
-        <table>
-          <thead><tr><th>Stop</th><th>Pulling out</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td>McDonald&rsquo;s</td><td class="time">6:50 am</td><td>S. Gulf Cove &amp; 776, Port Charlotte</td></tr>
-            <tr><td>Aldi</td><td class="time">7:00 am</td><td>4100 S McCall Road, Englewood</td></tr>
-            <tr><td>Aldi</td><td class="time">7:18 am</td><td>1254 Jacaranda Blvd, Venice</td></tr>
-            <tr><td>Saving Grace Bible Church</td><td class="time">7:35 am</td><td>2550 Englewood Road, Englewood</td></tr>
-            <tr><td>School</td><td class="time">8:00 am</td><td>&mdash;</td></tr>
-          </tbody>
-        </table>
-        <h3>Afternoon</h3>
-        <table>
-          <thead><tr><th>Stop</th><th>Time</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td>Saving Grace Bible Church</td><td class="time">3:18</td><td>2550 Englewood Road, Englewood</td></tr>
-            <tr><td>Aldi</td><td class="time">3:33</td><td>1254 Jacaranda Blvd, Venice</td></tr>
-            <tr><td>Aldi</td><td class="time">3:48</td><td>4100 S McCall Road, Englewood</td></tr>
-            <tr><td>McDonald&rsquo;s</td><td class="time">3:55</td><td>S. Gulf Cove &amp; 776, Port Charlotte</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section class="route">
-        <h2>Van Route (Red Van)</h2>
-        <h3>Morning</h3>
-        <table>
-          <thead><tr><th>Stop</th><th>Time</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td>Gulf Station Easy Street</td><td class="time">7:00</td><td>3666 Tamiami Trail, Port Charlotte</td></tr>
-            <tr><td>Mid County Regional Library</td><td class="time">7:05</td><td>2050 Forrest Nelson Blvd, Port Charlotte</td></tr>
-            <tr><td>Perkins</td><td class="time">7:20</td><td>6001 S. Salford Blvd, North Port</td></tr>
-            <tr><td>School</td><td class="time">8:00</td><td>&mdash;</td></tr>
-          </tbody>
-        </table>
-        <h3>Afternoon</h3>
-        <table>
-          <thead><tr><th>Stop</th><th>Time</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td>Perkins</td><td class="time">3:30</td><td>6001 S. Salford Blvd, North Port</td></tr>
-            <tr><td>Mid County Regional Library</td><td class="time">3:40</td><td>2050 Forrest Nelson Blvd, Port Charlotte</td></tr>
-            <tr><td>Easy Street</td><td class="time">3:50</td><td>3666 Tamiami Trail, Port Charlotte</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section class="route">
-        <h2>Van Route (White Van)</h2>
-        <h3>Morning</h3>
-        <table>
-          <thead><tr><th>Stop</th><th>Time</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td>Perkins</td><td class="time">7:20</td><td>6001 S. Salford Blvd, North Port</td></tr>
-            <tr><td>Library</td><td class="time">7:30</td><td>13800 Tamiami Trail, North Port</td></tr>
-            <tr><td>School</td><td class="time">8:00</td><td>&mdash;</td></tr>
-          </tbody>
-        </table>
-        <h3>Afternoon</h3>
-        <table>
-          <thead><tr><th>Stop</th><th>Time</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td>Library</td><td class="time">3:20</td><td>13800 Tamiami Trail, North Port</td></tr>
-            <tr><td>Perkins</td><td class="time">3:38</td><td>6001 S. Salford Blvd, North Port</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <p class="form-note" style="text-align:left">Questions about a route? Call the school at <a href="tel:+19412085773">(941) 208-5773</a>.</p>
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Van Route (White Van)</h2>
+    <div class="band-narrow route">
+      <h3>Morning</h3>
+      <ul class="stops">
+        <li>
+          <span class="stop"><b>Perkins</b><em>6001 S. Salford Blvd North Port</em></span>
+          <span class="time">7:20</span>
+        </li>
+        <li>
+          <span class="stop"><b>Library</b><em>13800 Tamiami Trail North Port</em></span>
+          <span class="time">7:30</span>
+        </li>
+        <li>
+          <span class="stop"><b>School</b></span>
+          <span class="time">8:00</span>
+        </li>
+      </ul>
+      <hr class="route-rule">
+      <h3>Afternoon</h3>
+      <ul class="stops">
+        <li>
+          <span class="stop"><b>Library</b><em>13800 Tamiami Trail North Port</em></span>
+          <span class="time">3:20</span>
+        </li>
+        <li>
+          <span class="stop"><b>Perkins</b><em>6001 S. Salford Blvd North Port</em></span>
+          <span class="time">3:38</span>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
@@ -172,6 +216,9 @@
         <p>Saturday - Sunday: Closed</p>
       </div>
     </div>
+    <nav class="footer-nav" aria-label="More information">
+      <ul class="footer-links"><li><a href="/employment">Employment</a></li><li><a href="/college-info">College Info</a></li><li><a href="/stem-competition">STEM Competition</a></li><li><a href="/spirit-week-contests">Spirit Week Contests</a></li><li><a href="/end-of-year-letter">End of Year Letter</a></li><li><a href="/covid-19-updates">COVID-19 Updates</a></li></ul>
+    </nav>
   </div>
 </footer>
 <div class="footer-bar">
@@ -183,6 +230,20 @@
 
 <script>
 (function(){
+  // Header expands at the top of the page and collapses once scrolled.
+  var hdr=document.querySelector('.site-header');
+  if(hdr){
+    var compact=null;
+    function onScroll(){
+      var want=(window.scrollY||document.documentElement.scrollTop)>24;
+      if(want===compact) return;              // only touch the DOM on a change
+      compact=want;
+      hdr.classList.toggle('is-compact',want);
+    }
+    onScroll();
+    addEventListener('scroll',onScroll,{passive:true});
+  }
+
   // Mobile nav toggle
   var t=document.querySelector('.nav-toggle'), n=document.getElementById('site-nav');
   if(t&&n){t.addEventListener('click',function(){

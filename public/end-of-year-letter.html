@@ -33,54 +33,48 @@
 <a class="skip" href="#main">Skip to main content</a>
 
 <header class="site-header">
-  <div class="header-top">
+  <div class="header-row">
     <a class="brand" href="/">
       <img src="/assets/img/logo.png" alt="Englewood Christian School" width="300" height="300">
     </a>
-    <div style="display:flex;align-items:center;gap:16px">
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/lunch-menu">Lunch Menu</a></li>
+        <li><a href="/about">About</a></li>
+        <li class="has-menu" data-open="false">
+          <button type="button" aria-expanded="false" aria-controls="more-menu">More</button>
+          <ul class="submenu" id="more-menu">
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/students">Students</a></li>
+            <li><a href="/handbook">Handbook</a></li>
+            <li><a href="/staff">Staff</a></li>
+            <li><a href="/registration">Registration</a></li>
+            <li><a href="/dress-code">Dress Code</a></li>
+            <li><a href="/report-cards">Report Cards</a></li>
+            <li><a href="/van-schedules">Van Schedules</a></li>
+            <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
+            <li><a href="/reporting">Reporting</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-right">
       <a class="header-tel" href="tel:+19412085773">(941) 208 - 5773</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <b></b><span>Menu</span>
       </button>
     </div>
   </div>
-  <nav class="site-nav" id="site-nav" aria-label="Main">
-      <ul class="nav-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/lunch-menu">Lunch Menu</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/calendar">Calendar</a></li>
-        <li><a href="/students">Students</a></li>
-        <li><a href="/handbook">Handbook</a></li>
-        <li><a href="/staff">Staff</a></li>
-        <li><a href="/registration">Registration</a></li>
-        <li><a href="/dress-code">Dress Code</a></li>
-        <li><a href="/report-cards">Report Cards</a></li>
-        <li><a href="/van-schedules">Van Schedules</a></li>
-        <li><a href="/school-wellness-policy">School Wellness Policy</a></li>
-        <li><a href="/reporting">Reporting</a></li>
-        <li class="has-menu" data-open="false">
-          <button type="button" aria-expanded="false" aria-controls="more-menu" aria-current="true">More</button>
-          <ul class="submenu" id="more-menu">
-            <li><a href="/employment">Employment</a></li>
-            <li><a href="/college-info">College Info</a></li>
-            <li><a href="/stem-competition">STEM Competition</a></li>
-            <li><a href="/spirit-week-contests">Spirit Week Contests</a></li>
-            <li><a href="/end-of-year-letter" aria-current="page">End of Year Letter</a></li>
-            <li><a href="/covid-19-updates">COVID-19 Updates</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
 </header>
 
 <main id="main">
 <section class="section">
   <div class="wrap">
     <h1 class="page-title">End of Year Letter</h1>
-    <div class="prose">
+    <div class="prose-aside-right">
+      <div class="prose">
       <div class="note"><p style="margin:0"><strong>Archive.</strong> This letter is from the 2019&ndash;2020 school year and is kept here for reference.</p></div>
-      <figure class="figure-side"><img src="/assets/img/new-building.jpg" alt="The new Englewood Christian School building under construction" width="1600" height="1200" loading="lazy"></figure>
       <h2>A Letter From Our Administrator</h2>
       <p>Believe it or not, we have come to the end of the rather unusual and challenging 2019-2020 academic year. As with the public schools, our school WILL be issuing report cards at the end of this week. Obviously, we know that these past weeks, due to everyone’s concern over the coronavirus and the rules put in place for social distancing, have been confusing, disruptive, and in some cases unnerving. For many students and parents, this time has been incredibly difficult and has pushed some to their limits. Also, some of our students, that were behind at the end of the third quarter but planned on catching up in the fourth nine weeks, were abruptly brought to reality when they found out there was not going to be traditional school for the rest of this school year.</p>
       <p>Englewood Christian School understands how challenging this last quarter has been, but at the same time, we also need to keep in mind that our curriculum, since it is individualized education, is founded upon the concept of subject mastery, making sure each student learns the necessary academic concepts in their current grade level before moving them into the next grade level. As such, students will be judged on their total performance for the year as it applies to their learning tracks. Students who are behind will begin next school year based on their last completed work for this year. Although this has been a trying time for everyone, we need to work together to teach our children that we cannot count on tomorrow as being “business as usual.”</p>
@@ -92,6 +86,8 @@
       <p>God Bless,</p>
       <p>Rev Michael Lindsey</p>
       <p>Administrator.</p>
+      </div>
+      <img src="/assets/img/new-building.jpg" alt="The new Englewood Christian School building under construction" width="1600" height="1200" loading="lazy">
     </div>
   </div>
 </section>
@@ -112,6 +108,9 @@
         <p>Saturday - Sunday: Closed</p>
       </div>
     </div>
+    <nav class="footer-nav" aria-label="More information">
+      <ul class="footer-links"><li><a href="/employment">Employment</a></li><li><a href="/college-info">College Info</a></li><li><a href="/stem-competition">STEM Competition</a></li><li><a href="/spirit-week-contests">Spirit Week Contests</a></li><li><a href="/end-of-year-letter" aria-current="page">End of Year Letter</a></li><li><a href="/covid-19-updates">COVID-19 Updates</a></li></ul>
+    </nav>
   </div>
 </footer>
 <div class="footer-bar">
@@ -123,6 +122,20 @@
 
 <script>
 (function(){
+  // Header expands at the top of the page and collapses once scrolled.
+  var hdr=document.querySelector('.site-header');
+  if(hdr){
+    var compact=null;
+    function onScroll(){
+      var want=(window.scrollY||document.documentElement.scrollTop)>24;
+      if(want===compact) return;              // only touch the DOM on a change
+      compact=want;
+      hdr.classList.toggle('is-compact',want);
+    }
+    onScroll();
+    addEventListener('scroll',onScroll,{passive:true});
+  }
+
   // Mobile nav toggle
   var t=document.querySelector('.nav-toggle'), n=document.getElementById('site-nav');
   if(t&&n){t.addEventListener('click',function(){

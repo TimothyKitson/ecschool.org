@@ -21,31 +21,36 @@ PHONE_TEXT = '(941) 208 - 5773'
 PHONE_HREF = 'tel:+19412085773'
 ADDRESS = '571 Medical Dr, Englewood, FL 34223, US'
 
-# Primary nav — order matches the original site.
+# Primary nav — the original showed only these three plus "More".
 NAV = [
-    ('/',                        'Home'),
-    ('/lunch-menu',              'Lunch Menu'),
-    ('/about',                   'About'),
-    ('/calendar',                'Calendar'),
-    ('/students',                'Students'),
-    ('/handbook',                'Handbook'),
-    ('/staff',                   'Staff'),
-    ('/registration',            'Registration'),
-    ('/dress-code',              'Dress Code'),
-    ('/report-cards',            'Report Cards'),
-    ('/van-schedules',           'Van Schedules'),
-    ('/school-wellness-policy',  'School Wellness Policy'),
-    ('/reporting',               'Reporting'),
+    ('/',            'Home'),
+    ('/lunch-menu',  'Lunch Menu'),
+    ('/about',       'About'),
 ]
 
-# "More" dropdown — the overflow pages, as on the original.
+# The "More" dropdown — exactly the pages the original listed there.
 NAV_MORE = [
-    ('/employment',            'Employment'),
-    ('/college-info',          'College Info'),
-    ('/stem-competition',      'STEM Competition'),
-    ('/spirit-week-contests',  'Spirit Week Contests'),
-    ('/end-of-year-letter',    'End of Year Letter'),
-    ('/covid-19-updates',      'COVID-19 Updates'),
+    ('/calendar',               'Calendar'),
+    ('/students',               'Students'),
+    ('/handbook',               'Handbook'),
+    ('/staff',                  'Staff'),
+    ('/registration',           'Registration'),
+    ('/dress-code',             'Dress Code'),
+    ('/report-cards',           'Report Cards'),
+    ('/van-schedules',          'Van Schedules'),
+    ('/school-wellness-policy', 'School Wellness Policy'),
+    ('/reporting',              'Reporting'),
+]
+
+# Kept out of the nav to keep it short, but linked in the footer so the pages
+# are still reachable rather than orphaned.
+NAV_FOOTER = [
+    ('/employment',           'Employment'),
+    ('/college-info',         'College Info'),
+    ('/stem-competition',     'STEM Competition'),
+    ('/spirit-week-contests', 'Spirit Week Contests'),
+    ('/end-of-year-letter',   'End of Year Letter'),
+    ('/covid-19-updates',     'COVID-19 Updates'),
 ]
 
 # page slug -> (<title>, meta description)
@@ -97,6 +102,14 @@ def url_for(slug):
     return '/' if slug == 'index' else '/' + slug
 
 
+def render_footer_links(current_url):
+    out = []
+    for h, l in NAV_FOOTER:
+        cur = ' aria-current="page"' if h == current_url else ''
+        out.append('<li><a href="' + h + '"' + cur + '>' + l + '</a></li>')
+    return '<ul class="footer-links">' + ''.join(out) + '</ul>'
+
+
 def render_nav(current_url):
     def item(href, label):
         cur = ' aria-current="page"' if href == current_url else ''
@@ -133,6 +146,7 @@ def build():
         full_title = title if slug == 'index' else f'{title} | {SITE_NAME}'
         html = (base
                 .replace('{{NAV}}', render_nav(cur))
+                .replace('{{FOOTER_LINKS}}', render_footer_links(cur))
                 .replace('{{TITLE}}', full_title)
                 .replace('{{DESCRIPTION}}', desc)
                 .replace('{{CANONICAL}}', 'https://ecschool.org' + cur)
