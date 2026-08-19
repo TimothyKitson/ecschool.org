@@ -44,9 +44,11 @@ are captured in the Netlify dashboard under **Forms**, and the sender lands on
 
 To have submissions emailed out, set it once in the Netlify UI:
 
-> **Site configuration → Forms → Form notifications → Add notification →
-> Email notification**, then enter the destination address and pick the
-> `contact` form.
+> **Project configuration → Notifications**, add a form-submission email
+> notification, enter the destination address and pick the `contact` form.
+
+Netlify only registers a form after a deploy that contains it, so this option
+does not appear until the site has deployed at least once.
 
 This is a dashboard setting, not something that can be committed to the repo.
 Submissions are stored either way, so nothing is lost before it is configured.
@@ -59,8 +61,14 @@ These were on the original site and were carried over as-is:
 |---|---|
 | `/registration` | JotForm — new student application |
 | `/employment` | Wufoo — employment application |
-| `/college-info` | Vimeo — financial aid presentation |
-| `/stem-competition` | Vimeo — 24 competition videos |
+
+The original also embedded 24 Vimeo videos on `/stem-competition` and one on
+`/college-info`. All of them now return 404 from Vimeo — they were deleted
+from the account that hosted them, so the embeds were already broken on the
+old site. They are not carried over. `/stem-competition` keeps the events,
+teams, and results as a written record, and `/college-info` keeps the PDFs.
+If the original video files still exist they can be re-uploaded and added
+back.
 
 ## What was dropped
 
