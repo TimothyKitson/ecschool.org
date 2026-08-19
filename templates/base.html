@@ -164,6 +164,104 @@
     addEventListener('resize',function(){clearTimeout(t);t=setTimeout(reflow,120);});
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(reflow);
   })();
+  // Multi-page documents: step through the rendered pages. Without JS the
+  // first page still shows and the download link still works.
+  document.querySelectorAll('.docpager').forEach(function(dp){
+    var pages=[].slice.call(dp.querySelectorAll('.docpage'));
+    if(pages.length<2) return;
+    var at=dp.querySelector('.doc-at');
+    var prev=dp.querySelector('.doc-prev'), next=dp.querySelector('.doc-next');
+    var i=0;
+    function show(n){
+      i=Math.min(Math.max(n,0),pages.length-1);
+      pages.forEach(function(p,k){
+        if(k===i) p.setAttribute('data-active','');
+        else p.removeAttribute('data-active');
+      });
+      at.textContent=i+1;
+      prev.disabled = i===0;
+      next.disabled = i===pages.length-1;
+      // Eagerly fetch the neighbours so paging feels instant.
+      [i+1,i-1].forEach(function(k){
+        var img=pages[k]&&pages[k].querySelector('img');
+        if(img) img.loading='eager';
+      });
+    }
+    prev.addEventListener('click',function(){show(i-1);});
+    next.addEventListener('click',function(){show(i+1);});
+    dp.addEventListener('keydown',function(e){
+      if(e.key==='ArrowLeft'){e.preventDefault();show(i-1);}
+      if(e.key==='ArrowRight'){e.preventDefault();show(i+1);}
+    });
+    show(0);
+  });
+
+  // Field Day carousel: centres the active slide, advances on a timer, and
+  // exposes arrows plus a thumbnail strip. The timer pauses while the pointer
+  // or keyboard focus is inside, and never starts if the visitor asked for
+  // reduced motion.
+  document.querySelectorAll('.fd').forEach(function(fd){
+    var track=fd.querySelector('.fd-track');
+    var slides=[].slice.call(fd.querySelectorAll('.fd-slide'));
+    var thumbs=[].slice.call(fd.querySelectorAll('.fd-thumb'));
+    if(slides.length<2) return;
+    var i=0, timer=null;
+    var delay=parseInt(fd.getAttribute('data-autoplay'),10)||3000;
+    var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(n){
+      i=(n+slides.length)%slides.length;
+      // shift the track so slide i sits in the middle of the stage
+      var slideW=slides[0].offsetWidth;
+      var offset=(fd.querySelector('.fd-stage').offsetWidth-slideW)/2-i*slideW;
+      track.style.transform='translateX('+offset+'px)';
+      slides.forEach(function(s,k){
+        if(k===i) s.setAttribute('data-active','');
+        else s.removeAttribute('data-active');
+      });
+      thumbs.forEach(function(t,k){
+        if(k===i) t.setAttribute('aria-current','true');
+        else t.removeAttribute('aria-current');
+      });
+    }
+    // The tick decides whether to advance, rather than mouse events flipping a
+    // flag. Tracking hover with mouseenter/mouseleave was unreliable: moving
+    // between children of the carousel fires neither, so a click on a control
+    // could leave the timer running while the pointer was still inside.
+    // :focus-visible rather than activeElement, so clicking an arrow with the
+    // mouse does not leave the carousel paused for good once the pointer
+    // moves away — only keyboard focus holds it.
+    function busy(){
+      var kb;
+      try { kb = !!fd.querySelector(':focus-visible'); } catch (e) { kb = false; }
+      return document.hidden || fd.matches(':hover') || kb;
+    }
+    function start(){
+      if(still || timer) return;
+      timer=setInterval(function(){ if(!busy()) show(i+1); },delay);
+    }
+    function stop(){ if(timer){clearInterval(timer);timer=null;} }
+    // Restart the clock on a manual move so the new photo gets a full delay.
+    function jump(n){ stop(); show(n); start(); }
+
+    fd.querySelector('.fd-prev').addEventListener('click',function(){jump(i-1);});
+    fd.querySelector('.fd-next').addEventListener('click',function(){jump(i+1);});
+    thumbs.forEach(function(t,k){t.addEventListener('click',function(){jump(k);});});
+    // Arrow keys move between photos once anything in the carousel has focus.
+    fd.addEventListener('keydown',function(e){
+      if(e.key==='ArrowLeft'){e.preventDefault();jump(i-1);}
+      if(e.key==='ArrowRight'){e.preventDefault();jump(i+1);}
+    });
+    fd.addEventListener('mouseenter',stop);
+    fd.addEventListener('mouseleave',start);
+    fd.addEventListener('focusin',stop);
+    fd.addEventListener('focusout',start);
+    // Don't run the timer while the tab is hidden.
+    document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+    addEventListener('resize',function(){show(i);});
+    show(0); start();
+  });
+
   document.addEventListener('click',function(){
     document.querySelectorAll('.has-menu[data-open=true]').forEach(function(li){
       li.setAttribute('data-open','false');

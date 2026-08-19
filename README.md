@@ -62,6 +62,38 @@ does not appear until the site has deployed at least once.
 This is a dashboard setting, not something that can be committed to the repo.
 Submissions are stored either way, so nothing is lost before it is configured.
 
+## Documents (PDFs)
+
+Pages show the PDFs as **images**, not in an embedded PDF viewer — the
+browser's viewer brings its own dark toolbar, which looked nothing like the
+rest of the page.
+
+`render_docs.py` renders every page of every PDF in `public/assets/pdf/` to
+`public/assets/img/docs/` and writes `docs-manifest.json`. Pages then refer to
+a document by a token:
+
+```
+{{DOC:2026-2027-Handbook}}
+```
+
+`build.py` turns that into a single image for a one-page document, or a pager
+with Previous/Next for a multi-page one. Every page after the first loads
+lazily, so a visitor only downloads the pages they actually look at.
+
+After replacing a PDF, run:
+
+```
+python3 render_docs.py && python3 build.py
+```
+
+## Field Day photos
+
+`/students` builds its carousel from whatever images sit in
+`public/assets/img/field-day/`. Drop JPEGs or PNGs in that folder and run
+`python3 build.py` — they are picked up in filename order. With the folder
+empty the page shows a short placeholder instead. The carousel advances every
+three seconds and pauses while the pointer or keyboard focus is inside it.
+
 ## Third-party embeds
 
 These were on the original site and were carried over as-is:

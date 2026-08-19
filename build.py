@@ -9,7 +9,7 @@ The generated files in public/ are committed to the repo, so Netlify serves
 them directly with no build step. Re-run this after editing anything in
 content/ or templates/, then commit the result.
 """
-import hashlib, os, re, shutil, sys
+import hashlib, json, os, re, shutil, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CONTENT = os.path.join(ROOT, 'content')
@@ -55,15 +55,15 @@ NAV_FOOTER = [
 
 # page slug -> (<title>, meta description)
 PAGES = {
-    'index': ('Englewood Christian School | Englewood, FL',
+    'index': ('Englewood Christian School',
               'A Christian school in Englewood, Florida offering individualized ACE curriculum, small class sizes, one-on-one tutoring, and transportation from Port Charlotte, North Port, Englewood, and Venice.'),
-    'about': ('About Us',
+    'about': ('About',
               'Why choose Englewood Christian School: ACE certified instructors, individualized curriculum, enrichment activities, tutoring, and Florida scholarship programs.'),
-    'staff': ('Staffulty',
+    'staff': ('Staff',
               'Meet the faculty and staff of Englewood Christian School.'),
     'students': ('Students',
                  'Student resources for Englewood Christian School, including the Ignitia login.'),
-    'handbook': ('Family Handbook',
+    'handbook': ('Handbook',
                  'Download the Englewood Christian School Family Handbook for 2026-27.'),
     'calendar': ('Calendar',
                  'The Englewood Christian School academic calendar for 2026-2027.'),
@@ -75,7 +75,7 @@ PAGES = {
                    'Englewood Christian School uniform and dress code requirements.'),
     'lunch-menu': ('Lunch Menu',
                    'School meal information, Summer BreakSpot, and civil rights language assistance.'),
-    'report-cards': ('Report Card Guide',
+    'report-cards': ('Report Cards',
                      'How to read and understand an Englewood Christian School report card.'),
     'van-schedules': ('Van Schedules',
                       'Morning and afternoon van routes serving Port Charlotte, North Port, Englewood, and Venice.'),
@@ -133,6 +133,112 @@ def render_nav(current_url):
     </nav>'''
 
 
+FIELD_DAY_DIR = os.path.join(PUBLIC, 'assets', 'img', 'field-day')
+DOCS_DIR = os.path.join(PUBLIC, 'assets', 'img', 'docs')
+
+# Human-readable names for the rendered documents, used in alt text and links.
+DOC_TITLES = {
+    '26-27-calendar': ('2026-2027 school calendar', 'Download Calendar'),
+    'August-17': ('Lunch menu', 'Download Menu'),
+    'ECSFreeLunch': ('Free and reduced price school meals information', 'Download PDF'),
+    'Educator-misconduct': ('Notice on reporting educator misconduct', 'Download PDF'),
+    'FAS-FMS-1': ('Florida Academic and Medallion Scholars award amounts', 'Download PDF'),
+    'Grade-Signs': ('Learning grade level table', 'Download PDF'),
+    'misconductFlyer': ('Flyer on reporting educator misconduct', 'Download PDF'),
+    'poster-on-child-abuse': ('Poster on reporting child abuse, abandonment or neglect', 'Download PDF'),
+    '2026-2027-Handbook': ('Family Handbook 2026-27', 'Download Handbook'),
+    'BFHandbookChapter1': ('Florida Bright Futures Scholarship handbook', 'Download PDF'),
+    'FinAidOverview': ('Financial aid overview presentation', 'Download PDF'),
+}
+
+
+def _doc_manifest():
+    # Build metadata, kept out of public/ so it is not served.
+    try:
+        with open(os.path.join(ROOT, 'docs-manifest.json'), encoding='utf-8') as fh:
+            return json.load(fh)
+    except (FileNotFoundError, ValueError):
+        return {}
+
+
+DOCS = _doc_manifest()
+
+
+def render_doc(stem):
+    """A rendered document: one page becomes a plain figure, several become a
+    pager with Previous / Next, the way the original presented them. Every page
+    ships as an image so no PDF viewer chrome appears inside the page, and all
+    but the first load lazily so only what is read gets downloaded."""
+    entry = DOCS.get(stem)
+    if not entry:
+        return f'<p><a href="/assets/pdf/{stem}.pdf" target="_blank" rel="noopener">Download PDF &rsaquo;</a></p>'
+    title, label = DOC_TITLES.get(stem, (stem, 'Download PDF'))
+    pages, n = entry['pages'], entry['count']
+    pdf = f'/assets/pdf/{stem}.pdf'
+    if n == 1:
+        p = pages[0]
+        return (f'<figure class="doc">\n'
+                f'      <img src="/assets/img/docs/{p["file"]}" alt="{title}" '
+                f'width="{p["w"]}" height="{p["h"]}" loading="lazy" decoding="async">\n'
+                f'      <figcaption><a href="{pdf}" target="_blank" rel="noopener">{label} &rsaquo;</a></figcaption>\n'
+                f'    </figure>')
+    imgs = []
+    for i, p in enumerate(pages):
+        imgs.append(
+            f'        <li class="docpage"{" data-active" if i == 0 else ""}>'
+            f'<img src="/assets/img/docs/{p["file"]}" alt="{title}, page {i + 1} of {n}" '
+            f'width="{p["w"]}" height="{p["h"]}" loading="{"eager" if i == 0 else "lazy"}" decoding="async"></li>')
+    nl = chr(10)
+    return f'''<div class="docpager" data-total="{n}">
+      <p class="docpager-dl"><a href="{pdf}" target="_blank" rel="noopener">{label} &rsaquo;</a></p>
+      <ul class="docpager-pages">
+{nl.join(imgs)}
+      </ul>
+      <p class="docpager-nav">
+        <button type="button" class="doc-prev">&lsaquo; Previous</button>
+        <span class="doc-count"><span class="doc-at">1</span>/{n}</span>
+        <button type="button" class="doc-next">Next &rsaquo;</button>
+      </p>
+    </div>'''
+
+
+def render_field_day():
+    """Build the Field Day carousel from whatever images are in
+    public/assets/img/field-day/. Empty folder -> a short placeholder."""
+    try:
+        files = sorted(f for f in os.listdir(FIELD_DAY_DIR)
+                       if re.search(r'\.(jpe?g|png|webp)$', f, re.I))
+    except FileNotFoundError:
+        files = []
+    if not files:
+        return '<p class="lede">Field Day photos will be posted here.</p>'
+    slides, thumbs = [], []
+    for i, f in enumerate(files):
+        url = '/assets/img/field-day/' + f
+        cur = ' aria-current="true"' if i == 0 else ''
+        slides.append(
+            f'        <li class="fd-slide"{" data-active" if i == 0 else ""}>'
+            f'<img src="{url}" alt="Field Day at Englewood Christian School, photo {i + 1} of {len(files)}"'
+            f' loading="{"eager" if i == 0 else "lazy"}" decoding="async"></li>')
+        thumbs.append(
+            f'        <li><button type="button" class="fd-thumb" data-go="{i}"{cur}'
+            f' aria-label="Show photo {i + 1} of {len(files)}">'
+            f'<img src="{url}" alt="" loading="lazy" decoding="async"></button></li>')
+    nl = chr(10)
+    return f'''<div class="fd" data-autoplay="3000">
+      <div class="fd-stage">
+        <button type="button" class="fd-nav fd-prev" aria-label="Previous photo"></button>
+        <ul class="fd-track" aria-live="polite">
+{nl.join(slides)}
+        </ul>
+        <button type="button" class="fd-nav fd-next" aria-label="Next photo"></button>
+      </div>
+      <ul class="fd-thumbs">
+{nl.join(thumbs)}
+      </ul>
+    </div>'''
+
+
 def hashed_css():
     """Copy site.css to site.<hash>.css and return its URL.
 
@@ -156,6 +262,7 @@ def hashed_css():
 def build():
     base = open(os.path.join(TEMPLATES, 'base.html'), encoding='utf-8').read()
     css_url = hashed_css()
+    field_day = render_field_day()
     built = 0
     for slug, (title, desc) in PAGES.items():
         src = os.path.join(CONTENT, slug + '.html')
@@ -164,7 +271,8 @@ def build():
             continue
         body = open(src, encoding='utf-8').read()
         cur = url_for(slug)
-        full_title = title if slug == 'index' else f'{title} | {SITE_NAME}'
+        # The original titled each page with just its name.
+        full_title = title
         html = (base
                 .replace('{{CSS}}', css_url)
                 .replace('{{NAV}}', render_nav(cur))
@@ -177,7 +285,11 @@ def build():
                 .replace('{{ADDRESS}}', ADDRESS)
                 .replace('{{SITE_NAME}}', SITE_NAME)
                 .replace('{{YEAR}}', '2026')
-                .replace('{{CONTENT}}', body))
+                .replace('{{CONTENT}}', body)
+                # after {{CONTENT}}: these tokens come from content files
+                .replace('{{FIELD_DAY}}', field_day))
+        html = re.sub(r'\{\{DOC:([A-Za-z0-9._-]+)\}\}',
+                      lambda m: render_doc(m.group(1)), html)
         out = os.path.join(PUBLIC, slug + '.html')
         open(out, 'w', encoding='utf-8').write(html)
         built += 1

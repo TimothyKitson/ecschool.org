@@ -103,7 +103,7 @@ main{padding-top:var(--header-expanded)}
 .site-header.is-compact .brand img{height:52px}
 
 .header-right{display:flex;align-items:center;gap:16px;flex:0 0 auto;margin-left:auto}
-.header-tel{font-size:16px;color:var(--ink);white-space:nowrap}
+.header-tel{font-size:20px;line-height:30px;color:var(--ink);white-space:nowrap}
 .header-tel:hover{color:var(--blue)}
 
 .nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:4px;padding:8px 12px;font:inherit;color:var(--ink);cursor:pointer;align-items:center;gap:8px}
@@ -120,21 +120,34 @@ main{padding-top:var(--header-expanded)}
 .nav-list > li[hidden]{display:none}
 .nav-list > li > a,.nav-list > li > button{
   display:block;padding:14px 13px;color:var(--ink);background:none;border:0;
-  font:inherit;font-size:15px;cursor:pointer;white-space:nowrap;
+  font:inherit;font-size:18px;line-height:24px;cursor:pointer;white-space:nowrap;
 }
 .nav-list > li > a:hover,.nav-list > li > button:hover{color:var(--blue)}
 .nav-list > li > a[aria-current=page]{color:var(--blue);font-weight:700;box-shadow:inset 0 -3px 0 var(--blue)}
 
 /* "More" dropdown */
-.has-menu > button::after{content:'';display:inline-block;margin-left:6px;border:4px solid transparent;border-top-color:currentColor;transform:translateY(2px)}
+/* A two-border corner reads as a thin chevron and, unlike a solid triangle,
+   can be rotated. At 45deg it points down; +180deg lands on up, and because
+   the rotation is clockwise it sweeps through left on the way. */
+.has-menu > button::after{
+  content:'';display:inline-block;width:7px;height:7px;margin:0 0 3px 9px;
+  vertical-align:middle;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(45deg);
+  transition:transform .45s cubic-bezier(.45,.05,.25,1);
+}
+.has-menu[data-open=true] > button::after{transform:rotate(225deg)}
+@media (prefers-reduced-motion:reduce){
+  .has-menu > button::after{transition:none}
+}
 .submenu{
-  position:absolute;right:0;top:100%;min-width:240px;background:var(--white);
+  position:absolute;right:0;top:100%;min-width:260px;background:var(--white);
   border:1px solid var(--line);border-radius:4px;box-shadow:0 3px 6px 3px rgba(0,0,0,.16);
   list-style:none;margin:0;padding:6px 0;display:none;z-index:60;
   max-height:45vh;overflow-y:auto;overscroll-behavior:contain;
 }
 .has-menu[data-open=true] .submenu{display:block}
-.submenu a{display:block;padding:9px 16px;font-size:14px;color:var(--ink)}
+.submenu a{display:block;padding:11px 18px;font-size:18px;line-height:24px;color:var(--ink)}
 .submenu a:hover{background:var(--wash);color:var(--blue)}
 
 /* ============================================================
@@ -357,7 +370,7 @@ figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
   .nav-list{flex-direction:column;flex-wrap:wrap;padding:8px var(--pad) 16px}
   .nav-list > li > a,.nav-list > li > button{padding:12px 0;font-size:16px;width:100%;text-align:left}
   .nav-list > li > a[aria-current=page]{box-shadow:none}
-  .has-menu > button::after{float:right;transform:translateY(8px)}
+  .has-menu > button::after{float:right;margin-top:8px}
   .submenu{position:static;border:0;box-shadow:none;padding:0 0 0 16px;min-width:0;max-height:none}
   .submenu a{padding:10px 0;font-size:16px}
 }
@@ -430,3 +443,74 @@ figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
 .dress-prose h3{font-size:18px;font-weight:700;margin:1.4em 0 .1em}
 .dress-prose h2.dc-major{font-size:32px;font-weight:400;text-decoration:none;margin:1.5em 0 .4em}
 .dress-prose em{font-style:italic}
+
+/* ---------- Field Day carousel ----------
+   One large slide centred, the neighbours peeking either side, arrows over
+   them, and a thumbnail strip below — the shape the original gallery used. */
+.fd{max-width:1112px;margin:0 auto}
+.fd-stage{position:relative;overflow:hidden}
+.fd-track{
+  display:flex;align-items:center;list-style:none;margin:0;padding:0;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.fd-slide{flex:0 0 40%;padding:0 12px;opacity:.35;transition:opacity .4s ease}
+.fd-slide[data-active]{opacity:1}
+.fd-slide img{width:100%;height:590px;object-fit:contain;background:var(--wash)}
+.fd-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:44px;height:64px;border:0;cursor:pointer;
+  background:rgba(255,255,255,.72);color:var(--ink);
+}
+.fd-nav:hover{background:rgba(255,255,255,.92)}
+.fd-prev{left:0}
+.fd-next{right:0}
+/* chevron drawn from two borders so it scales cleanly */
+.fd-nav::before{
+  content:'';position:absolute;top:50%;left:50%;width:11px;height:11px;
+  border-top:2px solid currentColor;border-right:2px solid currentColor;
+}
+.fd-prev::before{transform:translate(-50%,-50%) rotate(225deg)}
+.fd-next::before{transform:translate(-50%,-50%) rotate(45deg)}
+
+.fd-thumbs{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;
+  list-style:none;margin:20px 0 0;padding:0}
+.fd-thumb{padding:0;border:2px solid transparent;background:none;cursor:pointer;display:block;line-height:0}
+.fd-thumb img{width:80px;height:56px;object-fit:cover;display:block}
+.fd-thumb[aria-current=true]{border-color:var(--blue)}
+.fd-thumb:hover{border-color:var(--blue-link)}
+
+@media (max-width:860px){
+  .fd-slide{flex:0 0 80%}
+  .fd-slide img{height:380px}
+  .fd-thumb img{width:60px;height:42px}
+}
+@media (prefers-reduced-motion:reduce){
+  .fd-track{transition:none}
+  .fd-slide{transition:none}
+}
+
+/* ---------- Documents shown as images ----------
+   Rendered from the PDFs at build time. An embedded PDF pulled in the
+   browser's own viewer chrome — a dark toolbar that looked nothing like the
+   page — so the page shows the rendered page and links the PDF underneath. */
+.doc{max-width:726px;margin:0 auto;text-align:center}
+.doc img{width:100%;height:auto;border:1px solid var(--line);background:var(--white)}
+.doc img + img{margin-top:16px}
+.doc figcaption{font-size:14px;color:var(--ink-soft);margin-top:12px}
+.doc figcaption a{color:var(--blue)}
+
+/* ---------- Multi-page document pager ---------- */
+.docpager{max-width:726px;margin:0 auto}
+.docpager-dl{text-align:center;font-size:14px;margin:0 0 20px}
+.docpager-pages{list-style:none;margin:0;padding:0}
+.docpage{display:none}
+.docpage[data-active]{display:block}
+.docpage img{width:100%;height:auto;border:1px solid var(--line);background:var(--white)}
+.docpager-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin:16px 0 0;font-size:15px}
+.docpager-nav button{
+  background:none;border:0;padding:4px 6px;font:inherit;font-size:15px;
+  color:var(--blue);cursor:pointer;
+}
+.docpager-nav button:hover{color:var(--blue-link)}
+.docpager-nav button[disabled]{color:var(--ink-faint);cursor:default}
+.doc-count{color:var(--ink-soft)}
