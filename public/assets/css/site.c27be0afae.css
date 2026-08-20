@@ -43,7 +43,7 @@
   --script:'Damion',cursive;
   --sans:Helvetica,Arial,sans-serif;
   --wrap:1160px;
-  --header-expanded:118px;   /* height at the top of the page */
+  --header-expanded:125px;   /* height at the top of the page */
   --header-compact:76px;     /* height once scrolled */
   --pad:24px;
 }
@@ -92,18 +92,18 @@ main{padding-top:var(--header-expanded)}
 /* One row: logo, navigation, phone — as on the original site. */
 .header-row{
   display:flex;align-items:center;gap:24px;flex-wrap:wrap;
-  max-width:var(--wrap);margin:0 auto;padding:11px var(--pad);
+  max-width:var(--wrap);margin:0 auto;padding:12px var(--pad);
   transition:padding .25s ease;
 }
 .brand{display:flex;align-items:center;flex:0 0 auto;color:var(--ink)}
-.brand img{height:96px;width:auto;transition:height .25s ease}
+.brand img{height:100px;width:auto;transition:height .25s ease}
 /* Compact state once the page is scrolled away from the top. */
 .site-header.is-compact{background:rgba(255,255,255,.9)}
 .site-header.is-compact .header-row{padding:6px var(--pad)}
 .site-header.is-compact .brand img{height:52px}
 
 .header-right{display:flex;align-items:center;gap:16px;flex:0 0 auto;margin-left:auto}
-.header-tel{font-size:20px;line-height:30px;color:var(--ink);white-space:nowrap}
+.header-tel{font-size:18px;line-height:30px;color:var(--ink);white-space:nowrap}
 .header-tel:hover{color:var(--blue)}
 
 .nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:4px;padding:8px 12px;font:inherit;color:var(--ink);cursor:pointer;align-items:center;gap:8px}
@@ -391,11 +391,11 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    hamburger at the top left, phone centred on the first row, and an 80px
    logo centred beneath it — about 152px tall in total. */
 @media (max-width:1023px){
-  :root{--header-expanded:152px}
+  :root{--header-expanded:155px}
   .header-row{
     position:relative;
     display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
-    gap:0;padding:22px var(--pad) 12px;
+    gap:0;padding:17px var(--pad) 12px;
   }
   /* Visual order is phone, then logo, then the drawer — the reverse of the
      document order, which keeps the logo first for assistive tech. */
@@ -404,7 +404,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .brand img{height:80px}
   /* The logo keeps its size here; the original does not shrink it. */
   .site-header.is-compact .brand img{height:80px}
-  .site-header.is-compact .header-row{padding:22px var(--pad) 12px}
+  .site-header.is-compact .header-row{padding:17px var(--pad) 12px}
 
   .nav-toggle{display:flex;position:absolute;left:var(--pad);top:12px}
 
@@ -430,7 +430,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .hero-medallion h1{font-size:26px}
 }
 @media (max-width:560px){
-  .header-tel{font-size:14px}
+  .header-tel{font-size:18px}
   .hero{min-height:360px}
   .hero-medallion{width:min(280px,82vw);padding:41px}
   .hero-medallion h1{font-size:22px}
@@ -649,6 +649,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .form label,.form input,.form textarea{font-size:16px}
   .form textarea{min-height:130px}
   .lede,.prose,.band-narrow{font-size:18px}
+  .header-tel{font-size:20px}
   .page-title,.sub-title,.person h2,.contact-details h3,.form-lede,.row-split h2{font-size:24px}
   .legal-prose h2,.legal-prose h3,.legal-prose h4{font-size:18px;line-height:27px}
   .legal-prose h2.legal-lead{font-size:36px;line-height:45px}
