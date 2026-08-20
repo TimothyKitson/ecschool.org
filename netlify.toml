@@ -73,3 +73,15 @@
   for = "/assets/pdf/*"
   [headers.values]
     Cache-Control = "no-cache"
+
+# Form confirmation pages are only ever reached by submitting a form, so keep
+# them out of search results.
+[[headers]]
+  for = "/thanks"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/thanks-application"
+  [headers.values]
+    X-Robots-Tag = "noindex"
