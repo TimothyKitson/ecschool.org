@@ -303,13 +303,25 @@ main{padding-top:var(--header-expanded)}
 /* ---------- Van schedules: stop name + address, time right-aligned ---------- */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.route h3{font-family:var(--serif);font-weight:700;font-size:28px;color:var(--blue);margin:0 0 8px}
+/* Measured on the original: the "Morning" heading has no bottom margin, each
+   stop starts 24px below it, the stop name is 22px/27.5 and the time 22px/22
+   (so a two-line time is exactly 44px), and the address sits 8px under the
+   name row. That puts one stop every 124px, as on the original. */
+.route h3{font-family:var(--serif);font-weight:700;font-size:28px;line-height:1.25;color:var(--blue);margin:0}
 .route-rule{border:0;border-top:1px solid var(--line);margin:40px 0 32px}
 .stops{list-style:none;margin:0;padding:0}
-.stops li{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding:26px 0}
-.stops b{display:block;font-weight:400;font-size:22px;color:var(--ink)}
-.stops em{display:block;font-style:normal;font-size:16px;color:var(--ink-soft);margin-top:5px}
-.stops .time{flex:0 0 auto;max-width:175px;font-size:22px;color:var(--ink);text-align:right}
+/* The name and the time share the first row; the address runs full width
+   beneath both, so a two-line time pushes the address down the way it does
+   on the original. */
+.stops li{
+  display:grid;grid-template-columns:1fr auto;
+  grid-template-areas:"name time" "addr addr";
+  column-gap:24px;row-gap:8px;padding:24px 0;margin:0;
+}
+.stops .stop{display:contents}
+.stops b{grid-area:name;font-weight:400;font-size:22px;line-height:1.25;color:var(--ink)}
+.stops em{grid-area:addr;font-style:normal;font-size:16px;line-height:1.5;color:var(--ink-soft)}
+.stops .time{grid-area:time;max-width:181px;font-size:22px;line-height:22px;color:var(--ink);text-align:right}
 
 /* ---------- Contact form ---------- */
 .form{width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto}
