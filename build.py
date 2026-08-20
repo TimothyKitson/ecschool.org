@@ -215,6 +215,9 @@ def render_field_day():
                        if re.search(r'\.(jpe?g|png|webp)$', f, re.I))
     except FileNotFoundError:
         files = []
+    # A separate small crop per photo, so the strip does not pull ten full
+    # stage-sized images just to draw ten 80px squares.
+    thumb_dir = os.path.join(FIELD_DAY_DIR, 'thumbs')
     if not files:
         return '<p class="lede">Field Day photos will be posted here.</p>'
     slides, thumbs = [], []
@@ -225,10 +228,14 @@ def render_field_day():
             f'        <li class="fd-slide"{" data-active" if i == 0 else ""}>'
             f'<img src="{url}" alt="Field Day at Englewood Christian School, photo {i + 1} of {len(files)}"'
             f' loading="{"eager" if i == 0 else "lazy"}" decoding="async"></li>')
+        thumb = url
+        if os.path.exists(os.path.join(thumb_dir, f)):
+            thumb = '/assets/img/field-day/thumbs/' + f
         thumbs.append(
             f'        <li><button type="button" class="fd-thumb" data-go="{i}"{cur}'
             f' aria-label="Show photo {i + 1} of {len(files)}">'
-            f'<img src="{url}" alt="" loading="lazy" decoding="async"></button></li>')
+            f'<img src="{thumb}" alt="" width="80" height="56"'
+            f' loading="lazy" decoding="async"></button></li>')
     nl = chr(10)
     return f'''<div class="fd" data-autoplay="3000">
       <div class="fd-stage">
