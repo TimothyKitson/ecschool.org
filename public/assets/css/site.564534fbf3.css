@@ -166,7 +166,11 @@ main{padding-top:var(--header-expanded)}
 }
 .has-menu[data-open=true] .submenu{display:block}
 .submenu a{display:block;margin:8px 0;font-size:18px;line-height:1.5;color:var(--ink)}
-.submenu a:hover{color:var(--blue)}
+.submenu a:hover{color:#05419d}
+/* The page you are on is blue and bold here too, the same treatment the top
+   row gets minus the underline. Measured off the original: rgb(5,68,164) at
+   700 against rgb(27,27,27) at 400 for the rest. */
+.submenu a[aria-current=page]{color:var(--blue);font-weight:700}
 
 /* ============================================================
    Sections
