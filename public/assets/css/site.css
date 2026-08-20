@@ -156,10 +156,13 @@ main{padding-top:var(--header-expanded)}
   /* the original sizes the panel to its longest label rather than to a
      min-width, so it is never wider than the words in it */
   white-space:nowrap;
-  /* The original caps this at 45vh, which starts scrolling at five items on a
-     laptop window. Using the room actually below the header instead shows all
-     ten whenever the window can hold them, and still scrolls when it cannot. */
-  max-height:calc(100vh - 116px);overflow-y:auto;overscroll-behavior:contain;
+  /* The original caps this at 45vh, so where the list clips depends on the
+     window height. This clips at a chosen place instead: through the middle of
+     the tenth item's text, so a half-word and the scrollbar together show
+     there is more below. Rows are 35px on a 20px first offset, so the tenth
+     line runs 335-362 and 348 cuts its letters in half. The viewport term
+     only takes over on a window too short to hold even that. */
+  max-height:min(348px, calc(100vh - 116px));overflow-y:auto;overscroll-behavior:contain;
 }
 .has-menu[data-open=true] .submenu{display:block}
 .submenu a{display:block;margin:8px 0;font-size:18px;line-height:1.5;color:var(--ink)}
