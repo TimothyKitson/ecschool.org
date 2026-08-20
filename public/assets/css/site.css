@@ -390,6 +390,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 
 .footer-bar{background:var(--dark);color:#969696;padding:56px 0;font-size:12px}
 .footer-bar .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-bar span{line-height:18px}
 .footer-bar a{color:var(--ink-faint)}
 .footer-bar a:hover{color:var(--white)}
 
@@ -653,28 +654,6 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 .docpager-nav button[disabled]{color:var(--ink-faint);cursor:default}
 .doc-count{color:var(--ink-soft)}
 
-/* ---------- Linked video card ----------
-   The thumbnail links out to YouTube rather than embedding a player, so the
-   page loads nothing from YouTube unless the visitor chooses to watch. The
-   play badge uses YouTube's own colour so it is clear where the click goes. */
-.videocard{max-width:820px;margin:0 auto}
-.videocard-link{position:relative;display:block;line-height:0;background:#000}
-.videocard-link img{width:100%;height:auto;display:block;transition:opacity .25s ease}
-.videocard-link:hover img{opacity:.85}
-.videocard-play{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:74px;height:52px;border-radius:12px;background:#f00;
-  box-shadow:0 2px 10px rgba(0,0,0,.35);transition:background .2s ease;
-}
-.videocard-play::after{
-  content:'';position:absolute;top:50%;left:53%;transform:translate(-50%,-50%);
-  border-style:solid;border-width:11px 0 11px 18px;
-  border-color:transparent transparent transparent #fff;
-}
-.videocard-link:hover .videocard-play,
-.videocard-link:focus-visible .videocard-play{background:#c00}
-.videocard figcaption{text-align:center;font-size:15px;margin-top:14px;word-break:break-all}
-
 /* ============================================================
    Responsive bands — kept last so they win over the rules above
    ============================================================ */
@@ -702,26 +681,35 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .contact-details p,.contact-details address{font-size:18px;line-height:27px}
   .lede,.prose,.band-narrow{font-size:18px}
   .header-tel{font-size:20px}
+  .footer-bar{font-size:14px}
+  .footer-bar span{line-height:21px}
   .doc figcaption,.docpager-dl{font-size:18px;line-height:27px}
-  .page-title,.sub-title,.person h2,.contact-details h3,.form-lede,.row-split h2{font-size:24px}
-  .legal-prose h2,.legal-prose h3,.legal-prose h4{font-size:18px;line-height:27px}
-  .legal-prose h2.legal-lead{font-size:36px;line-height:45px}
-  .dress-prose{font-size:20px}
-  .dress-prose h2,.dress-prose h3{font-size:20px;line-height:30px}
-  .dress-prose h2.dc-major{font-size:36px;line-height:45px}
+  .page-title,.person h2,.contact-details h3,.form-lede,.row-split h2,
+  .sub-title,.prose .sub-title,.legal-prose .sub-title{font-size:24px}
+  /* The generic prose headings come first so the two prose variants below
+     override them — media queries add no specificity, so order decides. */
   .prose h2{font-size:27px}
   .prose h3{font-size:21px}
+  .prose.legal-prose h2,.prose.legal-prose h3,.prose.legal-prose h4{font-size:18px;line-height:27px}
+  .prose.legal-prose h2.legal-lead{font-size:36px;line-height:45px}
+  .dress-prose{font-size:20px}
+  .prose.dress-prose h2,.prose.dress-prose h3{font-size:20px;line-height:30px}
+  .prose.dress-prose h2.dc-major{font-size:36px;line-height:45px}
+  .person .role{font-size:18px;line-height:27px}
   figcaption{font-size:16px;line-height:24px}
 }
 @media (max-width:1279px){
   :root{--wrap:984px}
   .section-title,.route h3{font-size:26px}
+  .prose.dress-prose h2.dc-major,.prose.legal-prose h2.legal-lead{font-size:30px;line-height:37.5px}
   .hero-medallion h1{font-size:33px}
   .strip h2{font-size:33px}
 }
 /* Below the last fixed container width the page simply fills the viewport. */
 @media (max-width:1023px){
   :root{--wrap:100%}
+  /* the original stacks the copyright bar's two lines, each centred */
+  .footer-bar .wrap{flex-direction:column;align-items:center;text-align:center;gap:8px}
   /* two of twelve columns wider, matching the original's tablet layout */
   .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:calc((100% + 48px) * 10 / 12 - 48px)}
   /* the van route block keeps eight of twelve here */
@@ -738,6 +726,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 }
 @media (max-width:767px){
   .section-title,.route h3{font-size:25px}
+  .prose.dress-prose h2.dc-major,.prose.legal-prose h2.legal-lead{font-size:28px;line-height:35px}
   /* Below 768 the original stacks each stop: name, then the time under it
      left-aligned, then the address. */
   .stops li{grid-template-columns:1fr;grid-template-areas:"name" "time" "addr";row-gap:7px}
