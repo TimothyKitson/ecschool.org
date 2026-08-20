@@ -587,19 +587,18 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    Rendered from the PDFs at build time. An embedded PDF pulled in the
    browser's own viewer chrome — a dark toolbar that looked nothing like the
    page — so the page shows the rendered page and links the PDF underneath. */
-.doc{max-width:726px;margin:0 auto;text-align:center}
+.doc{width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto;text-align:center}
 /* Landscape documents (menus, calendars, slide decks) need the full width to
    stay readable; the original showed them much wider than the reading column. */
-.doc--wide{max-width:1112px}
-.docpager.doc--wide{max-width:1112px}
+.doc--wide,.docpager.doc--wide{width:100%;max-width:none}
 .doc img{width:100%;height:auto;border:1px solid var(--line);background:var(--white)}
 .doc img + img{margin-top:16px}
-.doc figcaption{font-size:14px;color:var(--ink-soft);margin-top:12px}
+.doc figcaption{font-size:16px;line-height:24px;color:var(--ink-soft);margin-top:12px}
 .doc figcaption a{color:var(--blue)}
 
 /* ---------- Multi-page document pager ---------- */
-.docpager{max-width:726px;margin:0 auto}
-.docpager-dl{text-align:center;font-size:14px;margin:0 0 20px}
+.docpager{width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto}
+.docpager-dl{text-align:center;font-size:16px;line-height:24px;margin:0 0 20px}
 .docpager-pages{list-style:none;margin:0;padding:0}
 .docpage{display:none}
 .docpage[data-active]{display:block}
@@ -661,6 +660,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .form textarea{min-height:130px}
   .lede,.prose,.band-narrow{font-size:18px}
   .header-tel{font-size:20px}
+  .doc figcaption,.docpager-dl{font-size:18px;line-height:27px}
   .page-title,.sub-title,.person h2,.contact-details h3,.form-lede,.row-split h2{font-size:24px}
   .legal-prose h2,.legal-prose h3,.legal-prose h4{font-size:18px;line-height:27px}
   .legal-prose h2.legal-lead{font-size:36px;line-height:45px}
@@ -681,13 +681,15 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 @media (max-width:1023px){
   :root{--wrap:100%}
   /* two of twelve columns wider, matching the original's tablet layout */
-  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose{width:calc((100% + 48px) * 10 / 12 - 48px)}
+  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:calc((100% + 48px) * 10 / 12 - 48px)}
+  /* a landscape document keeps the whole column at every width */
+  .doc--wide,.docpager.doc--wide{width:100%}
 }
 @media (max-width:767px){
   .section-title{font-size:25px}
   .strip-inner{flex-wrap:wrap}
   .strip h2{flex:1 1 100%;font-size:28px}
-  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose{width:100%}
+  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:100%}
   /* Measured on the original: a 544px hero holding a 280px medallion whose
      heading drops to 28px — at 33px the four lines overflow the circle. */
   .hero{min-height:544px}
