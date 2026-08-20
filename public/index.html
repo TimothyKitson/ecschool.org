@@ -6,7 +6,7 @@
 <title>Englewood Christian School</title>
 <meta name="description" content="A Christian school in Englewood, Florida offering individualized ACE curriculum, small class sizes, one-on-one tutoring, and transportation from Port Charlotte, North Port, Englewood, and Venice.">
 <link rel="canonical" href="https://ecschool.org/">
-<link rel="stylesheet" href="/assets/css/site.986c51e1e4.css">
+<link rel="stylesheet" href="/assets/css/site.1f3de25a2f.css">
 <link rel="icon" href="/assets/img/logo.png">
 <link rel="apple-touch-icon" href="/assets/img/logo.png">
 <link rel="preload" href="/assets/fonts/bitter-700-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -87,6 +87,26 @@
         <p class="announce-cta"><a class="btn btn-light" href="/calendar">Calendar</a></p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Surviving the Jungle</h2>
+    <figure class="videocard">
+      <a class="videocard-link" href="https://www.youtube.com/watch?v=aFT9a3_4Nfo"
+         target="_blank" rel="noopener"
+         aria-label="Watch Surviving the Jungle on YouTube (opens in a new tab)">
+        <img src="/assets/img/video-surviving-the-jungle.jpg" alt=""
+             width="1280" height="720" loading="lazy" decoding="async">
+        <span class="videocard-play" aria-hidden="true"></span>
+      </a>
+      <figcaption>
+        <a href="https://www.youtube.com/watch?v=aFT9a3_4Nfo" target="_blank" rel="noopener">
+          youtube.com/watch?v=aFT9a3_4Nfo
+        </a>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
@@ -284,6 +304,21 @@
       if(e.key==='ArrowRight'){e.preventDefault();show(i+1);}
     });
     show(0);
+    // Let anything else on the page drive this viewer (the handbook slide
+    // deck's "Show in handbook" links use it).
+    dp._docShow = show;
+  });
+
+  // "Show in handbook" and any other jump into a document viewer. Delegated,
+  // because the slide deck builds its links after this script has run.
+  document.addEventListener('click',function(e){
+    var a = e.target.closest && e.target.closest('[data-doc-page]');
+    if(!a) return;
+    var dp = document.getElementById(a.getAttribute('data-doc-target'));
+    if(!dp || !dp._docShow) return;                 // no viewer: follow the href
+    e.preventDefault();
+    dp._docShow(parseInt(a.getAttribute('data-doc-page'),10) - 1);
+    dp.scrollIntoView({behavior:'smooth',block:'center'});
   });
 
   // Field Day carousel: centres the active slide, advances on a timer, and

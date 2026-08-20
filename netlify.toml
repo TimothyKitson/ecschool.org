@@ -27,10 +27,31 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# The unhashed source stylesheet is not referenced by any page; never let a
-# browser hold on to it.
+# The handbook slide deck's stylesheet and script are hashed the same way.
+[[headers]]
+  for = "/assets/css/slides.*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/js/slides.*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The unhashed sources are not referenced by any page; never let a browser
+# hold on to them.
 [[headers]]
   for = "/assets/css/site.css"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/assets/css/slides.css"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/assets/js/slides.js"
   [headers.values]
     Cache-Control = "no-cache"
 

@@ -137,6 +137,10 @@ FIELD_DAY_DIR = os.path.join(PUBLIC, 'assets', 'img', 'field-day')
 DOCS_DIR = os.path.join(PUBLIC, 'assets', 'img', 'docs')
 
 # Human-readable names for the rendered documents, used in alt text and links.
+# Documents that are wider than they are tall, shown at the full content
+# width rather than the narrow reading column.
+DOC_WIDE = {'August-17', '26-27-calendar', 'Grade-Signs', 'FinAidOverview'}
+
 DOC_TITLES = {
     '26-27-calendar': ('2026-2027 school calendar', 'Download Calendar'),
     'August-17': ('Lunch menu', 'Download Menu'),
@@ -175,9 +179,10 @@ def render_doc(stem):
     title, label = DOC_TITLES.get(stem, (stem, 'Download PDF'))
     pages, n = entry['pages'], entry['count']
     pdf = f'/assets/pdf/{stem}.pdf'
+    wide = ' doc--wide' if stem in DOC_WIDE else ''
     if n == 1:
         p = pages[0]
-        return (f'<figure class="doc">\n'
+        return (f'<figure class="doc{wide}">\n'
                 f'      <img src="/assets/img/docs/{p["file"]}" alt="{title}" '
                 f'width="{p["w"]}" height="{p["h"]}" loading="lazy" decoding="async">\n'
                 f'      <figcaption><a href="{pdf}" target="_blank" rel="noopener">{label} &rsaquo;</a></figcaption>\n'
@@ -189,7 +194,7 @@ def render_doc(stem):
             f'<img src="/assets/img/docs/{p["file"]}" alt="{title}, page {i + 1} of {n}" '
             f'width="{p["w"]}" height="{p["h"]}" loading="{"eager" if i == 0 else "lazy"}" decoding="async"></li>')
     nl = chr(10)
-    return f'''<div class="docpager" data-total="{n}">
+    return f'''<div class="docpager{wide}" id="doc-{stem}" data-total="{n}">
       <p class="docpager-dl"><a href="{pdf}" target="_blank" rel="noopener">{label} &rsaquo;</a></p>
       <ul class="docpager-pages">
 {nl.join(imgs)}
@@ -239,29 +244,39 @@ def render_field_day():
     </div>'''
 
 
-def hashed_css():
-    """Copy site.css to site.<hash>.css and return its URL.
+def hashed_asset(rel):
+    """Copy assets/<rel>.<ext> to <rel>.<hash>.<ext> and return its URL.
 
-    The stylesheet is served with a one-year immutable cache, so its name has
-    to change whenever its contents do — otherwise browsers keep serving an
-    old stylesheet against new HTML, which breaks the layout.
+    Static assets are served with a one-year immutable cache, so a file's name
+    has to change whenever its contents do — otherwise browsers keep serving
+    an old copy against new HTML, which breaks the layout.
     """
-    css_dir = os.path.join(PUBLIC, 'assets', 'css')
-    src = os.path.join(css_dir, 'site.css')
-    data = open(src, 'rb').read()
+    directory, filename = os.path.split(rel)
+    stem, ext = os.path.splitext(filename)
+    out_dir = os.path.join(PUBLIC, 'assets', directory)
+    data = open(os.path.join(out_dir, filename), 'rb').read()
     digest = hashlib.sha256(data).hexdigest()[:10]
-    name = f'site.{digest}.css'
+    name = f'{stem}.{digest}{ext}'
     # drop hashed builds from previous runs
-    for f in os.listdir(css_dir):
-        if re.fullmatch(r'site\.[0-9a-f]{10}\.css', f) and f != name:
-            os.remove(os.path.join(css_dir, f))
-    open(os.path.join(css_dir, name), 'wb').write(data)
-    return '/assets/css/' + name
+    pattern = re.escape(stem) + r'\.[0-9a-f]{10}' + re.escape(ext)
+    for f in os.listdir(out_dir):
+        if re.fullmatch(pattern, f) and f != name:
+            os.remove(os.path.join(out_dir, f))
+    open(os.path.join(out_dir, name), 'wb').write(data)
+    return f'/assets/{directory}/{name}'
+
+
+# The handbook slide deck is its own stylesheet and script. Only the page that
+# embeds the deck pays for them, so they are injected per page rather than
+# sitewide.
+SLIDES_MARKER = 'class="ecs-root"'
 
 
 def build():
     base = open(os.path.join(TEMPLATES, 'base.html'), encoding='utf-8').read()
-    css_url = hashed_css()
+    css_url = hashed_asset('css/site.css')
+    slides_css = hashed_asset('css/slides.css')
+    slides_js = hashed_asset('js/slides.js')
     field_day = render_field_day()
     built = 0
     for slug, (title, desc) in PAGES.items():
@@ -273,6 +288,11 @@ def build():
         cur = url_for(slug)
         # The original titled each page with just its name.
         full_title = title
+        has_slides = SLIDES_MARKER in body
+        head_extra = (f'\n<link rel="stylesheet" href="{slides_css}">'
+                      if has_slides else '')
+        body_extra = (f'\n<script src="{slides_js}" defer></script>'
+                      if has_slides else '')
         html = (base
                 .replace('{{CSS}}', css_url)
                 .replace('{{NAV}}', render_nav(cur))
@@ -285,6 +305,8 @@ def build():
                 .replace('{{ADDRESS}}', ADDRESS)
                 .replace('{{SITE_NAME}}', SITE_NAME)
                 .replace('{{YEAR}}', '2026')
+                .replace('{{HEAD_EXTRA}}', head_extra)
+                .replace('{{BODY_EXTRA}}', body_extra)
                 .replace('{{CONTENT}}', body)
                 # after {{CONTENT}}: these tokens come from content files
                 .replace('{{FIELD_DAY}}', field_day))

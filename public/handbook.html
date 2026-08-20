@@ -6,7 +6,8 @@
 <title>Handbook</title>
 <meta name="description" content="Download the Englewood Christian School Family Handbook for 2026-27.">
 <link rel="canonical" href="https://ecschool.org/handbook">
-<link rel="stylesheet" href="/assets/css/site.986c51e1e4.css">
+<link rel="stylesheet" href="/assets/css/site.1f3de25a2f.css">
+<link rel="stylesheet" href="/assets/css/slides.c620763bd5.css">
 <link rel="icon" href="/assets/img/logo.png">
 <link rel="apple-touch-icon" href="/assets/img/logo.png">
 <link rel="preload" href="/assets/fonts/bitter-700-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -73,7 +74,7 @@
   <div class="wrap">
     <h1 class="page-title">Family Handbook 2026-27</h1>
     <p class="lede">Our Family Handbook covers school policies, expectations, and everything families need to know for the year.</p>
-    <div class="docpager" data-total="31">
+    <div class="docpager" id="doc-2026-2027-Handbook" data-total="31">
       <p class="docpager-dl"><a href="/assets/pdf/2026-2027-Handbook.pdf" target="_blank" rel="noopener">Download Handbook &rsaquo;</a></p>
       <ul class="docpager-pages">
         <li class="docpage" data-active><img src="/assets/img/docs/2026-2027-Handbook-01.jpg" alt="Family Handbook 2026-27, page 1 of 31" width="1100" height="1424" loading="eager" decoding="async"></li>
@@ -113,6 +114,45 @@
         <span class="doc-count"><span class="doc-at">1</span>/31</span>
         <button type="button" class="doc-next">Next &rsaquo;</button>
       </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-wash" id="handbook-highlights">
+  <div class="wrap">
+    <h2 class="section-title">Family Handbook Highlights</h2>
+    <p class="prose">A twenty-slide walk-through of the policies families ask about most. Each
+      slide links straight to the page it comes from in the handbook above.</p>
+    <div class="ecs-root">
+
+      <img id="ecsLogo" src="/assets/img/logo.png" alt="" hidden>
+
+      <div class="ecs-shell" id="ecsShell" tabindex="0" role="region" aria-label="ECS Family Handbook Highlights presentation">
+        <div class="ecs-stage" id="ecsStage">
+          <div class="ecs-canvas" id="ecsCanvas">
+
+          </div>
+        </div>
+
+        <button class="ecs-expand" id="ecsExpand" aria-label="Toggle full screen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+        </button>
+
+        <button class="ecs-arrow prev" id="ecsPrev" aria-label="Previous slide">
+          <span class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </button>
+        <button class="ecs-arrow next" id="ecsNext" aria-label="Next slide">
+          <span class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+        </button>
+
+        <div class="ecs-counter" id="ecsCounter"></div>
+        <div class="ecs-trail" id="ecsTrail"></div>
+        <div class="ecs-rotate-hint" id="ecsRotateHint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/></svg>
+          turn your phone for the full view
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -262,6 +302,21 @@
       if(e.key==='ArrowRight'){e.preventDefault();show(i+1);}
     });
     show(0);
+    // Let anything else on the page drive this viewer (the handbook slide
+    // deck's "Show in handbook" links use it).
+    dp._docShow = show;
+  });
+
+  // "Show in handbook" and any other jump into a document viewer. Delegated,
+  // because the slide deck builds its links after this script has run.
+  document.addEventListener('click',function(e){
+    var a = e.target.closest && e.target.closest('[data-doc-page]');
+    if(!a) return;
+    var dp = document.getElementById(a.getAttribute('data-doc-target'));
+    if(!dp || !dp._docShow) return;                 // no viewer: follow the href
+    e.preventDefault();
+    dp._docShow(parseInt(a.getAttribute('data-doc-page'),10) - 1);
+    dp.scrollIntoView({behavior:'smooth',block:'center'});
   });
 
   // Field Day carousel: centres the active slide, advances on a timer, and
@@ -346,5 +401,6 @@
   });
 })();
 </script>
+<script src="/assets/js/slides.ff0c32e7f5.js" defer></script>
 </body>
 </html>
