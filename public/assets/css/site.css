@@ -515,9 +515,14 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 .band-wide img{width:100%;height:auto;border:1px solid var(--line);background:var(--white)}
 .band-wide > figure{margin:0 0 32px}
 figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
-@media (max-width:860px){
+@media (max-width:1023px){
   .band-split{grid-template-columns:1fr;gap:24px}
   .band-split .band-media{order:-1}
+  /* stacked: the image runs full width, the text takes the band fraction */
+  .band-split .band-text{width:calc((100% + 48px) * 10 / 12 - 48px);margin:0 auto}
+}
+@media (max-width:767px){
+  .band-split .band-text{width:100%}
 }
 
 /* The original's plain sans sub-heading, used inside a prose column. The
