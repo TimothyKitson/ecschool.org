@@ -57,6 +57,9 @@ body{
 }
 img{max-width:100%;height:auto;display:block;border:0}
 a{color:var(--blue);text-decoration:none}
+/* Long bare URLs (the USDA complaint form on the About page) would otherwise
+   push a phone-width page sideways. */
+a{overflow-wrap:anywhere}
 a:hover{color:var(--blue-link)}
 a:active{color:var(--blue-dark)}
 h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.25;margin:0 0 .5em}
@@ -106,7 +109,11 @@ main{padding-top:var(--header-expanded)}
 .header-tel{font-size:18px;line-height:30px;color:var(--ink);white-space:nowrap}
 .header-tel:hover{color:var(--blue)}
 
-.nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:4px;padding:8px 12px;font:inherit;color:var(--ink);cursor:pointer;align-items:center;gap:8px}
+.nav-toggle{display:none;background:none;border:0;padding:10px;font:inherit;color:var(--ink);cursor:pointer;align-items:center;justify-content:center}
+/* The original's control is the icon alone; the label stays for screen readers. */
+.nav-toggle span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.nav-toggle b{width:22px}
+.nav-toggle b::before,.nav-toggle b::after{width:22px}
 .nav-toggle b{display:block;width:20px;height:2px;background:var(--ink);position:relative}
 .nav-toggle b::before,.nav-toggle b::after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--ink)}
 .nav-toggle b::before{top:-6px}.nav-toggle b::after{top:6px}
@@ -223,7 +230,8 @@ main{padding-top:var(--header-expanded)}
 .prose address{font-style:normal;margin:0 0 1em;padding-left:1.2em}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;min-height:686px;display:flex;align-items:center;justify-content:center;
+.hero{position:relative;min-height:686px;padding-top:var(--header-expanded);
+  display:flex;align-items:center;justify-content:center;
   background-position:50% 50%;background-size:cover;background-repeat:no-repeat;overflow:hidden}
 .hero-medallion{
   position:relative;z-index:2;width:450px;aspect-ratio:1;border-radius:50%;
@@ -374,8 +382,8 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    ============================================================ */
 
 @media (max-width:1023px){
-  .hero{min-height:560px}
-  .hero-medallion{width:400px;padding:59px}
+  .hero{min-height:668px}
+  .hero-medallion{width:400px;padding:58px}
 }
 @media (max-width:1023px){
   .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
@@ -425,15 +433,9 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .page-title{font-size:22px}
   .figure-side{float:none;width:100%;margin:0 0 20px}
   .contact-details{grid-template-columns:1fr;gap:24px}
-  .hero{min-height:440px}
-  .hero-medallion{width:300px;padding:44px}
-  .hero-medallion h1{font-size:26px}
 }
 @media (max-width:560px){
   .header-tel{font-size:18px}
-  .hero{min-height:360px}
-  .hero-medallion{width:min(280px,82vw);padding:41px}
-  .hero-medallion h1{font-size:22px}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;scroll-behavior:auto!important}
@@ -679,4 +681,9 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .strip-inner{flex-wrap:wrap}
   .strip h2{flex:1 1 100%;font-size:28px}
   .form,.form-lede,.contact-details,.lede,.band-narrow,.prose{width:100%}
+  /* Measured on the original: a 544px hero holding a 280px medallion whose
+     heading drops to 28px — at 33px the four lines overflow the circle. */
+  .hero{min-height:544px}
+  .hero-medallion{width:min(280px,82vw);padding:41px}
+  .hero-medallion h1{font-size:28px}
 }
