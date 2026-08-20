@@ -225,7 +225,7 @@ main{padding-top:var(--header-expanded)}
   .prose-aside{grid-template-columns:1fr;gap:24px}
 }
 .prose h3{font-size:19px;margin-top:1.1em;margin-bottom:.3em}
-.prose ul{padding-left:1.2em}
+.prose ul,.prose ol{padding-left:2em}
 .prose .note{background:var(--wash);border-left:4px solid var(--blue);padding:16px 20px;margin:1.5em 0}
 .prose address{font-style:normal;margin:0 0 1em;padding-left:1.2em}
 
@@ -286,9 +286,11 @@ main{padding-top:var(--header-expanded)}
 
 /* Staff cards */
 .person{text-align:center}
-.person h2{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;margin:0 0 14px;color:var(--ink)}
+.person h2{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;margin:0 0 24px;color:var(--ink)}
 .person img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 18%}
-.person .role{font-size:16px;line-height:1.5;color:var(--ink-soft);margin:14px 0 0}
+.person .role{font-size:16px;line-height:1.5;color:var(--ink-soft);margin:23px 0 0}
+/* The original has the first four roles typed in bold and the rest plain. */
+.person .role strong{font-weight:700;color:inherit}
 
 /* Simple link/resource list */
 .tiles{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));list-style:none;padding:0;margin:0}
@@ -518,8 +520,9 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   font-family:var(--sans);font-size:16px;line-height:24px;font-weight:700;
   color:inherit;margin:1.5em 0 0;
 }
-/* The reporting page's body copy is a shade darker than the site default. */
-.prose--575{color:#575757}
+/* The reporting and non-discrimination text is a shade darker than the site
+   default, and its bold runs stay that same colour rather than going dark. */
+.prose--575,.prose--575 strong{color:#575757}
 /* One big blue line opens the wellness policy. */
 .legal-prose h2.legal-lead{
   font-size:32px;line-height:40px;font-weight:700;color:var(--blue);margin:0 0 24px;
