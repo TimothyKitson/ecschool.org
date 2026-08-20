@@ -100,15 +100,25 @@ main{padding-top:var(--header-expanded)}
   max-width:var(--wrap);margin:0 auto;padding:12px var(--pad);
   transition:padding .25s ease;
 }
-.brand{display:flex;align-items:center;flex:0 0 auto;color:var(--ink)}
+/* The original's header is one centred row 1232px wide, with the nav centred
+   on the full content box - not on the space left over beside the logo. Giving
+   both side columns an equal share of the free space reproduces that: the nav
+   lands on the content centre (960 at 1920) instead of 24px left of it. */
+.brand{display:flex;align-items:center;flex:1 1 0;color:var(--ink)}
 .brand img{height:100px;width:auto;transition:height .25s ease}
 /* Compact state once the page is scrolled away from the top. */
 .site-header.is-compact{background:rgba(255,255,255,.9)}
 .site-header.is-compact .header-row{padding:6px var(--pad)}
 .site-header.is-compact .brand img{height:52px}
 
-.header-right{display:flex;align-items:center;gap:16px;flex:0 0 auto;margin-left:auto}
-.header-tel{font-size:18px;line-height:24px;color:var(--ink);white-space:nowrap}
+.header-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex:1 1 0}
+.header-tel{
+  font-size:18px;line-height:24px;color:var(--ink);white-space:nowrap;
+  /* The original's phone stops short of the content edge because an empty
+     container trails it in their header markup: 62px at 1280, 77px at 1920.
+     Offsetting rather than padding keeps the nav centred. */
+  position:relative;right:77px;
+}
 .header-tel:hover{color:var(--blue)}
 
 .nav-toggle{display:none;background:none;border:0;padding:10px;font:inherit;color:var(--ink);cursor:pointer;align-items:center;justify-content:center}
@@ -122,14 +132,17 @@ main{padding-top:var(--header-expanded)}
 
 /* The nav takes the space between logo and phone, and sheds overflow into
    "More" so the row never wraps. min-width:0 lets it shrink below content. */
-.site-nav{flex:1 1 auto;min-width:0}
+.site-nav{flex:0 1 auto;min-width:0}
 .nav-list{display:flex;flex-wrap:nowrap;justify-content:center;gap:0;list-style:none;margin:0;padding:0}
 .nav-list > li{position:relative}
 /* Set by the overflow script on items it has relocated into "More". */
 .nav-list > li[hidden]{display:none}
 .nav-list > li > a,.nav-list > li > button{
-  display:block;padding:14px 13px;color:var(--ink);background:none;border:0;
-  font:inherit;font-size:18px;line-height:24px;cursor:pointer;white-space:nowrap;
+  /* 16px a side puts 32px between labels, measured on the original */
+  display:block;padding:14px 16px;color:var(--ink);background:none;border:0;
+  /* 16px up to 1536 and 18px above it, which is the original's own ladder:
+     its nav type is 16px in the 768, 1024 and 1280 bands and 18px at 1536. */
+  font:inherit;font-size:16px;line-height:24px;cursor:pointer;white-space:nowrap;
 }
 .nav-list > li > a:hover,.nav-list > li > button:hover{color:var(--blue)}
 .nav-list > li > a[aria-current=page]{color:var(--blue);font-weight:700;box-shadow:inset 0 -3px 0 var(--blue)}
@@ -162,10 +175,10 @@ main{padding-top:var(--header-expanded)}
      there is more below. Rows are 35px on a 20px first offset, so the tenth
      line runs 335-362 and 348 cuts its letters in half. The viewport term
      only takes over on a window too short to hold even that. */
-  max-height:min(348px, calc(100vh - 116px));overflow-y:auto;overscroll-behavior:contain;
+  max-height:min(320px, calc(100vh - 116px));overflow-y:auto;overscroll-behavior:contain;
 }
 .has-menu[data-open=true] .submenu{display:block}
-.submenu a{display:block;margin:8px 0;font-size:18px;line-height:1.5;color:var(--ink)}
+.submenu a{display:block;margin:8px 0;font-size:16px;line-height:1.5;color:var(--ink)}
 .submenu a:hover{color:#05419d}
 /* The page you are on is blue and bold here too, the same treatment the top
    row gets minus the underline. Measured off the original: rgb(5,68,164) at
@@ -206,7 +219,7 @@ main{padding-top:var(--header-expanded)}
 /* "Get in Touch!" above the contact form */
 .form-lede{
   font-family:var(--sans);font-size:22px;line-height:1.25;color:#151515;
-  width:calc((100% + 48px) * 8 / 12 - 48px);margin:0 auto 28px;text-align:center;
+  width:calc((100% + 48px) * 8 / 12 - 48px);margin:0 auto 24px;text-align:center;
 }
 
 /* Long-form prose */
@@ -258,12 +271,19 @@ main{padding-top:var(--header-expanded)}
 
 /* ---------- Announcement band ---------- */
 .announce{display:grid;grid-template-columns:calc((100% + 48px) / 3 - 48px) 1fr;gap:48px;align-items:center}
-.announce > img{width:100%;aspect-ratio:1/1;object-fit:cover}
+/* The original does not crop this photo - it shows the file's own 1600x1337,
+   measured as 339x283 at 1280 and 379x316 at 1920. Cropping it square made
+   it 56px taller and pushed everything below it down the same amount. */
+.announce > img{width:100%;height:auto}
 .announce-text{text-align:left}
 /* Sans-serif regular, matching the original rather than the serif headings. */
-.announce h3{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;margin:0 0 14px;color:var(--white)}
-.announce p{margin:0 0 6px;font-size:16px;line-height:1.5;color:#d7d8e0}
-.announce-cta{margin-top:26px}
+.announce h3{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;margin:0 0 24px;color:var(--white)}
+/* 24px apart on the original, which is line-height alone - no gap between */
+.announce p{margin:0;font-size:16px;line-height:1.5;color:#d7d8e0}
+/* 24px, which puts 65px between the last line and the button as measured on
+   the original. Needs the
+   extra class: .announce p above is class+type and outranks a bare class. */
+.announce p.announce-cta{margin-top:24px}
 
 /* ---------- Call-to-action strip ---------- */
 .strip{background:var(--blue-mid);color:var(--white);padding:56px 0;
@@ -391,18 +411,22 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    width as the form above them, and the only footer is the dark bar below. */
 .contact-details{
   display:grid;grid-template-columns:repeat(2,1fr);gap:48px;
-  width:calc((100% + 48px) * 8 / 12 - 48px);margin:56px auto 0;text-align:center;
+  /* 64px, measured: the whole block sat 8px high against the original at 56 */
+  width:calc((100% + 48px) * 8 / 12 - 48px);margin:64px auto 0;text-align:center;
 }
 .contact-details h3{
   font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;
-  color:#151515;margin:0 0 12px;
+  color:#151515;margin:0 0 24px;
 }
+/* Measured on the original: 24px under the heading and under the address, and
+   nothing between the two hours lines - they sit 24px apart on line-height
+   alone, which is why a 6px margin there put them 30px apart. */
 .contact-details p,.contact-details address{
-  font-size:16px;line-height:1.5;color:#575757;font-style:normal;margin:0 0 6px;
+  font-size:16px;line-height:1.5;color:#575757;font-style:normal;margin:0;
 }
-.contact-details p:last-child{margin-bottom:0}
+.contact-details address{margin:0 0 24px}
 
-.footer-bar{background:var(--dark);color:#969696;padding:56px 0;font-size:12px}
+.footer-bar{background:var(--dark);color:#a9a9a9;padding:56px 0;font-size:12px}
 .footer-bar .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .footer-bar span{line-height:18px}
 .footer-bar a{color:var(--ink-faint)}
@@ -423,7 +447,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   /* Below 1024 the strip stacks: heading across the row, button centred. */
   .strip-inner{flex-wrap:wrap;justify-content:center}
   .strip h2{flex:1 1 100%;text-align:center}
-  .header-tel{line-height:27px}
+  .header-tel{line-height:27px;right:0}
 }
 @media (max-width:767px){
   .grid-3,.grid-4,.grid-2{grid-template-columns:1fr}
@@ -686,6 +710,13 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    rather than scattered through the file. */
 @media (min-width:1536px){
   :root{--wrap:1280px}
+  /* 8px more here, the same measurement taken at 1920 */
+  .contact-details{margin-top:72px}
+  /* the original's nav type steps up only here */
+  .nav-list > li > a,.nav-list > li > button{font-size:18px}
+  .submenu a{font-size:18px}
+  /* 18px rows are 35px tall, so the tenth line needs 348px to be cut in half */
+  .submenu{max-height:min(348px, calc(100vh - 116px))}
   .section-title,.route h3{font-size:32px}
   .hero-medallion h1{font-size:42px}
   .strip h2{font-size:42px}
