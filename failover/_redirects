@@ -1,0 +1,13 @@
+# Failover site for ecschool.org.
+#
+# This site holds no content. Its only job is to bounce every visitor to
+# ecschool.co, and it is only ever reached when Cloudflare's health check
+# finds the GoDaddy origin down.
+#
+# 302, not 301: a 301 is cached by browsers as permanent, so visitors would
+# keep landing on ecschool.co for weeks after GoDaddy recovered. The "!"
+# forces the rule even for paths that exist, so /index.html below is only
+# ever seen if this file itself fails to load.
+# :splat carries the rest of the path over, so a visitor deep-linked to
+# /lunch-menu lands on ecschool.co/lunch-menu rather than the home page.
+/*  https://ecschool.co/:splat  302!
