@@ -83,6 +83,8 @@
       <div class="fd-stage">
         <button type="button" class="fd-nav fd-prev" aria-label="Previous photo"></button>
         <ul class="fd-track" aria-live="polite">
+        <li class="fd-slide fd-clone" aria-hidden="true"><img src="/assets/img/field-day/field-day-09.jpg" alt="" loading="lazy" decoding="async"></li>
+        <li class="fd-slide fd-clone" aria-hidden="true"><img src="/assets/img/field-day/field-day-10.jpg" alt="" loading="lazy" decoding="async"></li>
         <li class="fd-slide" data-active><img src="/assets/img/field-day/field-day-01.jpg" alt="Field Day at Englewood Christian School, photo 1 of 10" loading="eager" decoding="async"></li>
         <li class="fd-slide"><img src="/assets/img/field-day/field-day-02.jpg" alt="Field Day at Englewood Christian School, photo 2 of 10" loading="lazy" decoding="async"></li>
         <li class="fd-slide"><img src="/assets/img/field-day/field-day-03.jpg" alt="Field Day at Englewood Christian School, photo 3 of 10" loading="lazy" decoding="async"></li>
@@ -93,6 +95,8 @@
         <li class="fd-slide"><img src="/assets/img/field-day/field-day-08.jpg" alt="Field Day at Englewood Christian School, photo 8 of 10" loading="lazy" decoding="async"></li>
         <li class="fd-slide"><img src="/assets/img/field-day/field-day-09.jpg" alt="Field Day at Englewood Christian School, photo 9 of 10" loading="lazy" decoding="async"></li>
         <li class="fd-slide"><img src="/assets/img/field-day/field-day-10.jpg" alt="Field Day at Englewood Christian School, photo 10 of 10" loading="lazy" decoding="async"></li>
+        <li class="fd-slide fd-clone" aria-hidden="true"><img src="/assets/img/field-day/field-day-01.jpg" alt="" loading="lazy" decoding="async"></li>
+        <li class="fd-slide fd-clone" aria-hidden="true"><img src="/assets/img/field-day/field-day-02.jpg" alt="" loading="lazy" decoding="async"></li>
         </ul>
         <button type="button" class="fd-nav fd-next" aria-label="Next photo"></button>
       </div>
@@ -280,7 +284,11 @@
   // reduced motion.
   document.querySelectorAll('.fd').forEach(function(fd){
     var track=fd.querySelector('.fd-track');
-    var slides=[].slice.call(fd.querySelectorAll('.fd-slide'));
+    // Decorative copies pad both ends so the stage is never half empty; only
+    // the real slides are navigable.
+    var slides=[].slice.call(fd.querySelectorAll('.fd-slide:not(.fd-clone)'));
+    var all=[].slice.call(fd.querySelectorAll('.fd-slide'));
+    var lead=all.indexOf(slides[0]);
     var thumbs=[].slice.call(fd.querySelectorAll('.fd-thumb'));
     if(slides.length<2) return;
     var i=0, timer=null;
@@ -291,7 +299,7 @@
       i=(n+slides.length)%slides.length;
       // shift the track so slide i sits in the middle of the stage
       var slideW=slides[0].offsetWidth;
-      var offset=(fd.querySelector('.fd-stage').offsetWidth-slideW)/2-i*slideW;
+      var offset=(fd.querySelector('.fd-stage').offsetWidth-slideW)/2-(i+lead)*slideW;
       track.style.transform='translateX('+offset+'px)';
       slides.forEach(function(s,k){
         if(k===i) s.setAttribute('data-active','');

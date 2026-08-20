@@ -134,6 +134,27 @@ def render_nav(current_url):
 
 
 FIELD_DAY_DIR = os.path.join(PUBLIC, 'assets', 'img', 'field-day')
+GALLERY_DIR = os.path.join(PUBLIC, 'assets', 'img', 'galleries')
+
+# Alt-text label per gallery folder, so the photos describe themselves.
+GALLERY_LABELS = {
+    'stem-competition--photo-gallery':
+        'The STEM Engineering Competition at Englewood Christian School',
+    'spirit-week-contests--mr-john-s-class-drawings':
+        "Spirit Week chalk drawings by Mr. John's class",
+    'spirit-week-contests--mrs-cheryl-s-and-mrs-mona-s-classes-chalk-drawings':
+        "Spirit Week chalk drawings by Mrs. Cheryl's and Mrs. Mona's classes",
+    'spirit-week-contests--mr-john-s-class-crazy-hats':
+        "Spirit Week crazy hats in Mr. John's class",
+    'spirit-week-contests--mrs-cheryl-s-mrs-mona-s-classes-crazy-hats':
+        "Spirit Week crazy hats in Mrs. Cheryl's and Mrs. Mona's classes",
+    'spirit-week-contests--mr-john-s-class-cookie-decorating':
+        "Spirit Week cookie decorating in Mr. John's class",
+    'spirit-week-contests--mr-john-s-class-slippers':
+        "Spirit Week slippers in Mr. John's class",
+    'spirit-week-contests--mrs-cheryl-s-mrs-mona-s-classes-slippers':
+        "Spirit Week slippers in Mrs. Cheryl's and Mrs. Mona's classes",
+}
 DOCS_DIR = os.path.join(PUBLIC, 'assets', 'img', 'docs')
 
 # Human-readable names for the rendered documents, used in alt text and links.
@@ -207,37 +228,54 @@ def render_doc(stem):
     </div>'''
 
 
-def render_field_day():
-    """Build the Field Day carousel from whatever images are in
-    public/assets/img/field-day/. Empty folder -> a short placeholder."""
+def render_carousel(directory, url_base, label, autoplay=3000, empty=''):
+    """A photo carousel: centred active slide, arrows, thumbnail strip, and a
+    timer that pauses on hover. Built from whatever images are in `directory`,
+    so adding a photo is a matter of dropping in a file and rebuilding.
+
+    A sibling thumbs/ folder is used for the strip when it exists, so the strip
+    does not pull full stage-sized images to draw 80px squares.
+    """
     try:
-        files = sorted(f for f in os.listdir(FIELD_DAY_DIR)
+        files = sorted(f for f in os.listdir(directory)
                        if re.search(r'\.(jpe?g|png|webp)$', f, re.I))
     except FileNotFoundError:
         files = []
-    # A separate small crop per photo, so the strip does not pull ten full
-    # stage-sized images just to draw ten 80px squares.
-    thumb_dir = os.path.join(FIELD_DAY_DIR, 'thumbs')
     if not files:
-        return '<p class="lede">Field Day photos will be posted here.</p>'
+        return empty
+    thumb_dir = os.path.join(directory, 'thumbs')
     slides, thumbs = [], []
+
+    def clone(f):
+        # A decorative copy so the stage never shows empty space beside the
+        # first or last photo, the way the original carousel looked. Hidden
+        # from assistive tech since the real slide is elsewhere in the list.
+        return (f'        <li class="fd-slide fd-clone" aria-hidden="true">'
+                f'<img src="{url_base}/{f}" alt="" loading="lazy" decoding="async"></li>')
+
+    # two on each side is enough: the stage is under three slides wide
+    lead = files[-2:] if len(files) > 2 else files[-1:]
+    tail = files[:2] if len(files) > 2 else files[:1]
+    slides.extend(clone(f) for f in lead)
+
     for i, f in enumerate(files):
-        url = '/assets/img/field-day/' + f
+        url = url_base + '/' + f
         cur = ' aria-current="true"' if i == 0 else ''
         slides.append(
             f'        <li class="fd-slide"{" data-active" if i == 0 else ""}>'
-            f'<img src="{url}" alt="Field Day at Englewood Christian School, photo {i + 1} of {len(files)}"'
+            f'<img src="{url}" alt="{label}, photo {i + 1} of {len(files)}"'
             f' loading="{"eager" if i == 0 else "lazy"}" decoding="async"></li>')
         thumb = url
         if os.path.exists(os.path.join(thumb_dir, f)):
-            thumb = '/assets/img/field-day/thumbs/' + f
+            thumb = url_base + '/thumbs/' + f
         thumbs.append(
             f'        <li><button type="button" class="fd-thumb" data-go="{i}"{cur}'
             f' aria-label="Show photo {i + 1} of {len(files)}">'
             f'<img src="{thumb}" alt="" width="80" height="56"'
             f' loading="lazy" decoding="async"></button></li>')
+    slides.extend(clone(f) for f in tail)
     nl = chr(10)
-    return f'''<div class="fd" data-autoplay="3000">
+    return f'''<div class="fd" data-autoplay="{autoplay}">
       <div class="fd-stage">
         <button type="button" class="fd-nav fd-prev" aria-label="Previous photo"></button>
         <ul class="fd-track" aria-live="polite">
@@ -249,6 +287,24 @@ def render_field_day():
 {nl.join(thumbs)}
       </ul>
     </div>'''
+
+
+def render_field_day():
+    """The Field Day carousel on the Students page."""
+    return render_carousel(
+        FIELD_DAY_DIR, '/assets/img/field-day',
+        'Field Day at Englewood Christian School',
+        empty='<p class="lede">Field Day photos will be posted here.</p>')
+
+
+def render_gallery(name):
+    """A named carousel from public/assets/img/galleries/<name>/, used by the
+    {{GALLERY:...}} token in the content files. The original site's galleries
+    are one folder each, keeping their original order."""
+    label = GALLERY_LABELS.get(name, 'Englewood Christian School')
+    return render_carousel(
+        os.path.join(GALLERY_DIR, name), '/assets/img/galleries/' + name, label,
+        empty=f'<!-- gallery {name}: no images in public/assets/img/galleries/{name}/ -->')
 
 
 def hashed_asset(rel):
@@ -319,6 +375,8 @@ def build():
                 .replace('{{FIELD_DAY}}', field_day))
         html = re.sub(r'\{\{DOC:([A-Za-z0-9._-]+)\}\}',
                       lambda m: render_doc(m.group(1)), html)
+        html = re.sub(r'\{\{GALLERY:([A-Za-z0-9._-]+)\}\}',
+                      lambda m: render_gallery(m.group(1)), html)
         out = os.path.join(PUBLIC, slug + '.html')
         open(out, 'w', encoding='utf-8').write(html)
         built += 1

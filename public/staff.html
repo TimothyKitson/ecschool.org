@@ -290,7 +290,11 @@
   // reduced motion.
   document.querySelectorAll('.fd').forEach(function(fd){
     var track=fd.querySelector('.fd-track');
-    var slides=[].slice.call(fd.querySelectorAll('.fd-slide'));
+    // Decorative copies pad both ends so the stage is never half empty; only
+    // the real slides are navigable.
+    var slides=[].slice.call(fd.querySelectorAll('.fd-slide:not(.fd-clone)'));
+    var all=[].slice.call(fd.querySelectorAll('.fd-slide'));
+    var lead=all.indexOf(slides[0]);
     var thumbs=[].slice.call(fd.querySelectorAll('.fd-thumb'));
     if(slides.length<2) return;
     var i=0, timer=null;
@@ -301,7 +305,7 @@
       i=(n+slides.length)%slides.length;
       // shift the track so slide i sits in the middle of the stage
       var slideW=slides[0].offsetWidth;
-      var offset=(fd.querySelector('.fd-stage').offsetWidth-slideW)/2-i*slideW;
+      var offset=(fd.querySelector('.fd-stage').offsetWidth-slideW)/2-(i+lead)*slideW;
       track.style.transform='translateX('+offset+'px)';
       slides.forEach(function(s,k){
         if(k===i) s.setAttribute('data-active','');
