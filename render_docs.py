@@ -13,7 +13,9 @@ import pypdfium2 as pdfium
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PDF_DIR = os.path.join(ROOT, 'public', 'assets', 'pdf')
 OUT_DIR = os.path.join(ROOT, 'public', 'assets', 'img', 'docs')
-TARGET_WIDTH = 1100          # readable on screen without oversized files
+# The widest a document is ever shown is 1232 CSS px (a landscape document at
+# 1920), so 1600 keeps it crisp there and on a 2x screen at the reading width.
+TARGET_WIDTH = 1600
 
 
 def main():
