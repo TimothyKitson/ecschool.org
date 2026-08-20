@@ -269,9 +269,9 @@ main{padding-top:var(--header-expanded)}
 
 /* Staff cards */
 .person{text-align:center}
-.person h2{font-family:var(--sans);font-weight:400;font-size:20px;margin:0 0 14px;color:var(--ink)}
+.person h2{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;margin:0 0 14px;color:var(--ink)}
 .person img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 18%}
-.person .role{font-size:16px;color:var(--ink-soft);margin:14px 0 0}
+.person .role{font-size:16px;line-height:1.5;color:var(--ink-soft);margin:14px 0 0}
 
 /* Simple link/resource list */
 .tiles{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));list-style:none;padding:0;margin:0}
@@ -333,7 +333,7 @@ main{padding-top:var(--header-expanded)}
 /* ---------- Figures ---------- */
 figure{margin:0 0 28px}
 figure img{border:1px solid var(--line)}
-figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 .figure-side{float:right;width:min(340px,40%);margin:0 0 20px 28px}
 
 /* ============================================================
@@ -473,12 +473,12 @@ figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
 .feature-square img{aspect-ratio:1/1;border-radius:50%}
 
 /* Alternating image + text rows (About page) */
-.row-split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin:0 0 56px}
+.row-split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin:0 0 48px}
 .row-split:last-child{margin-bottom:0}
 .row-split .txt{text-align:center}
 .row-split h2{font-family:Helvetica,Arial,sans-serif;font-weight:400;font-size:22px;color:var(--ink);margin:0 0 16px}
 .row-split p{font-size:16px;color:var(--ink-soft)}
-.row-split img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.row-split img{width:100%;aspect-ratio:2/1;object-fit:cover}
 .row-split .media-first{order:-1}
 @media (max-width:860px){
   .announce{grid-template-columns:1fr;gap:24px}
@@ -502,20 +502,47 @@ figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
 .band-narrow p:last-child{margin-bottom:0}
 .band-wide img{width:100%;height:auto;border:1px solid var(--line);background:var(--white)}
 .band-wide > figure{margin:0 0 32px}
-figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 @media (max-width:860px){
   .band-split{grid-template-columns:1fr;gap:24px}
   .band-split .band-media{order:-1}
 }
 
+/* ---------- Legal / policy prose (reporting, wellness policy) ----------
+   The original sets these pages as one run of body text: the sub-headings are
+   bold runs at the body size and colour, the numbered standards keep their
+   typed-in markers with no hanging indent, and the whole block is #575757. */
+.legal-prose h2,.legal-prose h3,.legal-prose h4{
+  font-family:var(--sans);font-size:16px;line-height:24px;font-weight:700;
+  color:inherit;margin:1.5em 0 0;
+}
+/* The reporting page's body copy is a shade darker than the site default. */
+.prose--575{color:#575757}
+/* One big blue line opens the wellness policy. */
+.legal-prose h2.legal-lead{
+  font-size:32px;line-height:40px;font-weight:700;color:var(--blue);margin:0 0 24px;
+}
+.legal-prose .flat-list,.legal-prose .flat-list ol,.legal-prose .flat-list ul{
+  list-style-position:inside;padding-left:0;margin:0;
+}
+.legal-prose .flat-list li{margin:0}
+/* The page opens with its title left-aligned above the text, not centred. */
+.page-title--flush{text-align:left;color:#151515;margin:0 0 32px}
+
 /* ---------- Dress code headings ----------
    The original set these as bold body text and one large light-weight sans
    heading rather than the site's serif headings. Matching that appearance
    while keeping real heading tags for the document outline. */
-.dress-prose h2,.dress-prose h3{font-family:var(--sans);color:var(--ink)}
-.dress-prose h2{font-size:18px;font-weight:700;text-decoration:underline;margin:1.6em 0 .2em}
-.dress-prose h3{font-size:18px;font-weight:700;margin:1.4em 0 .1em}
-.dress-prose h2.dc-major{font-size:32px;font-weight:400;text-decoration:none;margin:1.5em 0 .4em}
+/* Measured on the original: these are bold runs in the body colour at the
+   body size, not headings in the heading colour. The one exception is the
+   "Appearance" pair, which is a light 32px sans line. */
+.dress-prose h2,.dress-prose h3{font-family:var(--sans);color:var(--ink-soft)}
+.dress-prose h2{font-size:18px;line-height:27px;font-weight:700;text-decoration:underline;margin:1em 0 0}
+.dress-prose h3{font-size:18px;line-height:27px;font-weight:700;margin:1em 0 0}
+.dress-prose h2.dc-major{
+  font-size:32px;line-height:40px;font-weight:400;color:var(--ink);
+  text-decoration:none;margin:0 0 24px;
+}
 .dress-prose em{font-style:italic}
 
 /* ---------- Field Day carousel ----------
