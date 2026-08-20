@@ -463,7 +463,9 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    The original built these pages as a stack of white/grey sections, each
    either two-column (text beside an image) or a full-width image with a
    narrower centred text block. */
-.band-split{display:grid;grid-template-columns:2fr 1fr;gap:48px;align-items:center}
+/* Eight-of-twelve text beside a four-of-twelve image, the split the original
+   uses on the report card guide. */
+.band-split{display:grid;grid-template-columns:1fr calc((100% + 48px) / 3 - 48px);gap:48px;align-items:center}
 .band-split figure,.band-wide figure{margin:0}
 .band-split img{width:100%;height:auto;border:1px solid var(--line)}
 .band-text{font-size:16px;color:var(--ink-soft)}
