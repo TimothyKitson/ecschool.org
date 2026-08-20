@@ -6,7 +6,7 @@
 <title>Englewood Christian School</title>
 <meta name="description" content="A Christian school in Englewood, Florida offering individualized ACE curriculum, small class sizes, one-on-one tutoring, and transportation from Port Charlotte, North Port, Englewood, and Venice.">
 <link rel="canonical" href="https://ecschool.org/">
-<link rel="stylesheet" href="/assets/css/site.1f3de25a2f.css">
+<link rel="stylesheet" href="/assets/css/site.e7211b1e3c.css">
 <link rel="icon" href="/assets/img/logo.png">
 <link rel="apple-touch-icon" href="/assets/img/logo.png">
 <link rel="preload" href="/assets/fonts/bitter-700-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -122,17 +122,17 @@
     <h2 class="section-title">About Us</h2>
     <div class="grid grid-3">
       <div class="feature feature-square">
-        <img src="/assets/img/photo-a.jpg" alt="A student working at Englewood Christian School" width="1600" height="1067" loading="lazy">
+        <img src="/assets/img/photo-a.jpg" alt="Study carrels in an Englewood Christian School classroom" width="1100" height="1100" loading="lazy">
         <h3>Englewood Christian School Values Individuality.</h3>
         <p>Every child is a wonderfully unique individual who possesses her or his own learning style and maturity level. That is why, at Englewood Christian School (ECS), we approach each child as someone with a unique set of talents and learning needs.</p>
       </div>
       <div class="feature feature-square">
-        <img src="/assets/img/photo-b.jpg" alt="Students in class at Englewood Christian School" width="1600" height="2400" loading="lazy">
+        <img src="/assets/img/photo-b.jpg" alt="A student in an ECS shirt working at a desk" width="1100" height="1100" loading="lazy">
         <h3>First-Rate Curriculum</h3>
         <p>At ECS, we strive to keep class size not simply manageable but personal to allow our faculty and staff to better know each student and aid with her or his learning objectives. We use a combination of ACE ministries curriculum and Alpha and Omega computer curriculum.</p>
       </div>
       <div class="feature feature-square">
-        <img src="/assets/img/stock-107310.jpg" alt="A teacher working one-on-one with a student" width="1600" height="1066" loading="lazy">
+        <img src="/assets/img/stock-107310.jpg" alt="A bundle of sharpened coloured pencils" width="1100" height="1100" loading="lazy">
         <h3>One-on-One Tutoring</h3>
         <p>Our skilled staff combined with our small class size allows each student to not only receive instruction in education and values but also tutoring, if necessary, on an individual basis.</p>
       </div>
@@ -143,46 +143,50 @@
 <section class="section section-wash" id="contact">
   <div class="wrap">
     <h2 class="section-title">Contact Us</h2>
-    <p class="lede" style="margin-bottom:28px;font-size:22px;color:#1b1b1b">Get in Touch!</p>
+    <p class="form-lede">Get in Touch!</p>
     <form class="form" name="contact" method="POST" action="/thanks"
           data-netlify="true" netlify-honeypot="bot-field">
       <p class="hp"><label>Do not fill this in: <input name="bot-field"></label></p>
-      <label for="name">Name</label>
-      <input id="name" name="name" type="text" autocomplete="name">
-      <label for="email">Email <span aria-hidden="true">*</span></label>
-      <input id="email" name="email" type="email" autocomplete="email" required>
-      <label for="message">Message</label>
-      <textarea id="message" name="message"></textarea>
+      <!-- Label after the field so CSS can float it out of the way on focus;
+           `for` keeps the association, so reading order is unaffected. The
+           space placeholder is what makes :placeholder-shown usable here. -->
+      <p class="field">
+        <input id="name" name="name" type="text" autocomplete="name" placeholder=" ">
+        <label for="name">Name</label>
+      </p>
+      <p class="field">
+        <input id="email" name="email" type="email" autocomplete="email" required placeholder=" ">
+        <label for="email">Email<span aria-hidden="true">*</span></label>
+      </p>
+      <p class="field">
+        <textarea id="message" name="message" placeholder=" "></textarea>
+        <label for="message">Message</label>
+      </p>
       <div class="actions"><button class="btn" type="submit">Send</button></div>
       <p class="form-note">Prefer to talk? Call us at <a href="tel:+19412085773">(941) 208-5773</a>.</p>
     </form>
+    <div class="contact-details">
+      <div>
+        <h3>Englewood Christian School</h3>
+        <address>571 Medical Dr, Englewood, FL 34223, US</address>
+        <p><a href="tel:+19412085773">(941) 208-5773</a></p>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <p>Monday - Friday: 7:45 am - 3:30 pm</p>
+        <p>Saturday - Sunday: Closed</p>
+      </div>
+    </div>
   </div>
 </section>
 
 </main>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-cols">
-      <div>
-        <h2>Englewood Christian School</h2>
-        <address>571 Medical Dr, Englewood, FL 34223, US</address>
-        <p><a href="tel:+19412085773">(941) 208-5773</a></p>
-      </div>
-      <div>
-        <h2>Hours</h2>
-        <p>Monday - Friday: 7:45 am - 3:30 pm</p>
-        <p>Saturday - Sunday: Closed</p>
-      </div>
-    </div>
-    <nav class="footer-nav" aria-label="More information">
-      <ul class="footer-links"><li><a href="/employment">Employment</a></li><li><a href="/college-info">College Info</a></li><li><a href="/stem-competition">STEM Competition</a></li><li><a href="/spirit-week-contests">Spirit Week Contests</a></li><li><a href="/end-of-year-letter">End of Year Letter</a></li><li><a href="/covid-19-updates">COVID-19 Updates</a></li></ul>
-    </nav>
-  </div>
-</footer>
+<!-- The original site's footer is only the dark copyright bar; its address
+     and opening hours live at the foot of the home page's Contact section. -->
 <div class="footer-bar">
   <div class="wrap">
-    <span>Copyright &copy; 2026 Englewood Christian School &mdash; All Rights Reserved.</span>
+    <span>Copyright &copy; 2026 Englewood Christian School - All Rights Reserved.</span>
     <span><a href="tel:+19412085773">(941) 208-5773</a></span>
   </div>
 </div>

@@ -162,13 +162,24 @@ main{padding-top:var(--header-expanded)}
 /* Rule-flanked centred heading, as on the original */
 .section-title{
   display:flex;align-items:center;gap:20px;
-  font-size:26px;color:var(--blue);margin:0 0 40px;text-align:center;
+  font-size:28px;line-height:1.25;color:var(--blue);margin:0 0 40px;text-align:center;
 }
 .section-title::before,.section-title::after{content:'';flex:1;height:1px;background:currentColor;opacity:.55}
 .section-blue .section-title{color:var(--white)}
 
-.page-title{font-size:32px;color:var(--blue);margin:0 0 24px;text-align:center}
+/* The original's "featured" page heading: plain sans, not a serif display
+   line. Used on the pages that open with a short label rather than a
+   rule-flanked section title. */
+.page-title{
+  font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;
+  color:var(--ink);margin:0 0 24px;text-align:center;
+}
 .lede{font-size:18px;color:var(--ink-soft);max-width:760px;margin:0 auto 32px;text-align:center}
+/* "Get in Touch!" above the contact form */
+.form-lede{
+  font-family:var(--sans);font-size:22px;line-height:1.25;color:#151515;
+  width:calc((100% + 48px) * 8 / 12 - 48px);margin:0 auto 28px;text-align:center;
+}
 
 /* Long-form prose */
 .prose{max-width:725px;margin:0 auto;font-size:16px;color:var(--ink-soft)}
@@ -210,34 +221,39 @@ main{padding-top:var(--header-expanded)}
   background:rgba(5,68,164,.86);color:var(--white);
   display:flex;align-items:center;justify-content:center;text-align:center;padding:66px;
 }
-.hero-medallion h1{font-size:39px;margin:0;color:var(--white);line-height:1.3}
+.hero-medallion h1{font-size:39px;margin:0;color:var(--white);line-height:1.27}
 .hero-sub{margin:.5em 0 0;font-size:16px}
 
 /* ---------- Announcement band ---------- */
-.announce{display:grid;grid-template-columns:339px 1fr;gap:48px;align-items:center}
-.announce > img{width:100%;height:auto}
+.announce{display:grid;grid-template-columns:calc((100% + 48px) / 3 - 48px) 1fr;gap:48px;align-items:center}
+.announce > img{width:100%;aspect-ratio:1/1;object-fit:cover}
 .announce-text{text-align:left}
 /* Sans-serif regular, matching the original rather than the serif headings. */
-.announce h3{font-family:var(--sans);font-weight:400;font-size:22px;margin:0 0 14px;color:var(--white)}
-.announce p{margin:0 0 6px;font-size:15px}
+.announce h3{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;margin:0 0 14px;color:var(--white)}
+.announce p{margin:0 0 6px;font-size:16px;line-height:1.5;color:#d7d8e0}
 .announce-cta{margin-top:26px}
 
 /* ---------- Call-to-action strip ---------- */
-.strip{background:var(--blue-mid);color:var(--white);padding:80px 0;
+.strip{background:var(--blue-mid);color:var(--white);padding:56px 0;
   background-size:cover;background-position:50% 50%;background-repeat:no-repeat}
-.strip-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;padding:0 48px}
-.strip h2{font-size:39px;margin:0;color:var(--white);max-width:860px}
+/* One row, 24px inside the container: the heading takes whatever the button
+   leaves, which is how the original lands on a 922px heading at 1440px.
+   flex-basis 0 rather than auto — with auto, the heading's max-content size
+   fills the first flex line on its own and pushes the button onto a second. */
+.strip-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:nowrap;padding:24px 48px}
+.strip h2{flex:1 1 0%;min-width:0;font-size:39px;line-height:1.27;margin:0;color:var(--white);text-align:left}
+.strip .btn{flex:0 0 auto}
 
 /* ---------- Buttons ---------- */
 .btn{
-  display:inline-block;padding:16px 32px;font-family:var(--sans);font-size:16px;font-weight:700;line-height:1.5;
+  display:inline-block;padding:8px 32px;font-family:var(--sans);font-size:14px;font-weight:700;line-height:40px;
   border:0;border-radius:0;cursor:pointer;text-align:center;
   background:var(--blue);color:var(--white);box-shadow:4px 4px 0 rgba(0,0,0,.85);
   transition:transform .12s ease,box-shadow .12s ease;
 }
 .btn:hover{color:var(--white);transform:translate(1px,1px);box-shadow:3px 3px 0 rgba(0,0,0,.85)}
 .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 rgba(0,0,0,.85)}
-.btn-light{background:var(--white);color:var(--blue)}
+.btn-light{background:var(--white);color:#303030}
 .btn-light:hover{color:var(--blue-dark)}
 
 /* ---------- Card grids ---------- */
@@ -248,8 +264,8 @@ main{padding-top:var(--header-expanded)}
 
 .feature{text-align:center}
 .feature img{width:100%;aspect-ratio:3/2;object-fit:cover;margin-bottom:24px}
-.feature h3{font-family:var(--sans);font-weight:400;font-size:22px;margin:0 0 12px;color:var(--ink)}
-.feature p{font-size:16px;color:var(--ink-soft);margin:0}
+.feature h3{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;margin:0 0 24px;color:var(--ink)}
+.feature p{font-size:16px;line-height:1.5;color:var(--ink-soft);margin:0}
 
 /* Staff cards */
 .person{text-align:center}
@@ -275,13 +291,32 @@ main{padding-top:var(--header-expanded)}
 .stops .time{flex:0 0 auto;max-width:175px;font-size:22px;color:var(--ink);text-align:right}
 
 /* ---------- Contact form ---------- */
-.form{max-width:805px;margin:0 auto}
-.form label{display:block;font-size:13px;color:var(--ink-soft);margin:0 0 4px}
+.form{width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto}
+/* The original floats each field's label inside the box: centred while the
+   field is empty, small and tucked under the top edge once it has focus or
+   content. Measured off the live site: 48px tall fields, 23px/8px/7px padding,
+   1px #dadada border, 4px radius, 14px #474747 text. */
+.form .field{position:relative;margin:0 0 24px}
 .form input,.form textarea{
-  width:100%;padding:12px 14px;font:inherit;font-size:16px;color:var(--ink);
-  background:var(--white);border:1px solid var(--line);border-radius:4px;margin-bottom:16px;
+  width:100%;padding:23px 8px 7px;font:inherit;font-size:14px;line-height:18px;color:#474747;
+  background:var(--white);border:1px solid #dadada;border-radius:4px;margin:0;
 }
-.form textarea{min-height:130px;resize:vertical}
+.form input{height:48px}
+.form textarea{min-height:116px;resize:vertical}
+.form .field label{
+  position:absolute;left:9px;top:50%;transform:translateY(-50%);
+  font-size:14px;line-height:16px;color:#474747;pointer-events:none;
+  transition:top .15s ease,transform .15s ease,font-size .15s ease;
+}
+/* A textarea is tall, so its resting label sits near the top rather than
+   halfway down the box. */
+.form .field textarea ~ label{top:15px;transform:none}
+.form .field input:focus ~ label,
+.form .field input:not(:placeholder-shown) ~ label,
+.form .field textarea:focus ~ label,
+.form .field textarea:not(:placeholder-shown) ~ label{
+  top:6px;transform:none;font-size:11px;
+}
 .form input:focus,.form textarea:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(5,68,164,.12)}
 .form .actions{text-align:center;margin-top:6px}
 .form-note{font-size:12px;color:var(--ink-soft);text-align:center;margin:16px 0 0}
@@ -304,19 +339,23 @@ figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
 /* ============================================================
    Footer
    ============================================================ */
-.site-footer{background:var(--wash);padding:48px 0 40px}
-.footer-cols{display:grid;gap:32px;grid-template-columns:repeat(2,1fr);text-align:center;max-width:820px;margin:0 auto}
-.site-footer h2{font-family:var(--sans);font-weight:400;font-size:24px;color:var(--ink);margin:0 0 12px}
-.site-footer p,.site-footer address{font-size:18px;color:var(--ink-soft);font-style:normal;margin:0 0 6px}
-/* Footer link row: pages kept out of the nav but still reachable. */
-.footer-nav{margin:36px auto 0;max-width:820px;border-top:1px solid var(--line);padding-top:24px}
-.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;
-  list-style:none;margin:0;padding:0}
-.footer-links a{font-size:14px;color:var(--ink-soft)}
-.footer-links a:hover{color:var(--blue)}
-.footer-links a[aria-current=page]{color:var(--blue);font-weight:700}
+/* The original has no footer block of its own — the address and hours sit at
+   the foot of the home page's Contact section, in two columns the same total
+   width as the form above them, and the only footer is the dark bar below. */
+.contact-details{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:48px;
+  width:calc((100% + 48px) * 8 / 12 - 48px);margin:56px auto 0;text-align:center;
+}
+.contact-details h3{
+  font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;
+  color:#151515;margin:0 0 12px;
+}
+.contact-details p,.contact-details address{
+  font-size:16px;line-height:1.5;color:#575757;font-style:normal;margin:0 0 6px;
+}
+.contact-details p:last-child{margin-bottom:0}
 
-.footer-bar{background:var(--dark);color:var(--ink-faint);padding:22px 0;font-size:12px}
+.footer-bar{background:var(--dark);color:#a9a9a9;padding:56px 0;font-size:12px}
 .footer-bar .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .footer-bar a{color:var(--ink-faint)}
 .footer-bar a:hover{color:var(--white)}
@@ -324,19 +363,55 @@ figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
 /* ============================================================
    Responsive
    ============================================================ */
+/* The original scales the whole page in four steps, driven by the width of
+   its 12-column container. Measured off the live site at 1920/1440/1100/860:
+
+     >=1536   container 1280   section title 32   card 379   form 805
+     1280..   container 1160   section title 28   card 339   form 725
+     1024..   container  984   section title 26   card 280   form 608
+     <1024    container 100%   section title 26   (2 columns, form 10/12)
+     <768     container 100%   section title 25   (1 column,  form 12/12)
+
+   Everything below follows from that, so the bands are kept together here
+   rather than scattered through the file. */
 @media (min-width:1536px){
+  :root{--wrap:1280px}
+  .section-title{font-size:32px}
   .hero-medallion h1{font-size:42px}
+  .strip h2{font-size:42px}
+  .btn{font-size:16px}
+  .announce h3,.feature h3{font-size:24px}
+  .announce p,.feature p{font-size:18px}
+  .form label,.form input,.form textarea{font-size:16px}
+  .form textarea{min-height:130px}
 }
 @media (max-width:1279px){
+  :root{--wrap:984px}
+  .section-title{font-size:26px}
   .hero-medallion h1{font-size:33px}
+  .strip h2{font-size:33px}
+}
+/* Below the last fixed container width the page simply fills the viewport. */
+@media (max-width:1023px){
+  :root{--wrap:100%}
+  /* two of twelve columns wider, matching the original's tablet layout */
+  .form,.form-lede,.contact-details{width:calc((100% + 48px) * 10 / 12 - 48px)}
+}
+@media (max-width:767px){
+  .section-title{font-size:25px}
+  .strip-inner{flex-wrap:wrap}
+  .strip h2{flex:1 1 100%;font-size:28px}
+  .form,.form-lede,.contact-details{width:100%}
 }
 @media (max-width:1023px){
   .hero{min-height:560px}
   .hero-medallion{width:400px;padding:59px}
 }
-@media (max-width:960px){
+@media (max-width:1023px){
   .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
-  .strip h2{font-size:26px}
+}
+@media (max-width:767px){
+  .grid-3,.grid-4,.grid-2{grid-template-columns:1fr}
 }
 @media (max-width:860px){
   .announce{grid-template-columns:1fr;gap:24px}
@@ -376,16 +451,15 @@ figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
 }
 @media (max-width:760px){
   .section{padding:40px 0}
-  .section-title{font-size:22px;gap:12px}
-  .page-title{font-size:26px}
+  .section-title{gap:12px}
+  .page-title{font-size:22px}
   .figure-side{float:none;width:100%;margin:0 0 20px}
-  .footer-cols{grid-template-columns:1fr}
+  .contact-details{grid-template-columns:1fr;gap:24px}
   .hero{min-height:440px}
   .hero-medallion{width:300px;padding:44px}
   .hero-medallion h1{font-size:26px}
 }
 @media (max-width:560px){
-  .grid-3,.grid-4,.grid-2{grid-template-columns:1fr}
   .header-tel{font-size:14px}
   .hero{min-height:360px}
   .hero-medallion{width:min(280px,82vw);padding:41px}
