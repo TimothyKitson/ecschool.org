@@ -106,7 +106,7 @@ main{padding-top:var(--header-expanded)}
 .site-header.is-compact .brand img{height:52px}
 
 .header-right{display:flex;align-items:center;gap:16px;flex:0 0 auto;margin-left:auto}
-.header-tel{font-size:18px;line-height:30px;color:var(--ink);white-space:nowrap}
+.header-tel{font-size:18px;line-height:24px;color:var(--ink);white-space:nowrap}
 .header-tel:hover{color:var(--blue)}
 
 .nav-toggle{display:none;background:none;border:0;padding:10px;font:inherit;color:var(--ink);cursor:pointer;align-items:center;justify-content:center}
@@ -387,13 +387,26 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 }
 @media (max-width:1023px){
   .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
+  /* A lone card on the last row is centred, as on the original. */
+  .grid-3 > :last-child:nth-child(odd){grid-column:1 / -1;justify-self:center;width:calc(50% - 24px)}
+  /* Below 1024 the strip stacks: heading across the row, button centred. */
+  .strip-inner{flex-wrap:wrap;justify-content:center}
+  .strip h2{flex:1 1 100%;text-align:center}
+  .header-tel{line-height:27px}
 }
 @media (max-width:767px){
   .grid-3,.grid-4,.grid-2{grid-template-columns:1fr}
+  /* one column, so the trailing-card centring no longer applies */
+  .grid-3 > :last-child:nth-child(odd){grid-column:auto;justify-self:stretch;width:auto}
 }
-@media (max-width:860px){
+/* Below 1024 the original stacks the announcement: the photo above a text
+   column ten of twelve wide, centred as a block but still left-aligned. */
+@media (max-width:1023px){
   .announce{grid-template-columns:1fr;gap:24px}
-  .announce-text{text-align:center}
+  .announce-text{
+    text-align:left;
+    width:calc((100% + 48px) * 10 / 12 - 48px);margin:0 auto;
+  }
 }
 /* Below 1024px the original switches to a stacked, centred header:
    hamburger at the top left, phone centred on the first row, and an 80px
@@ -459,10 +472,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 .row-split p{font-size:16px;color:var(--ink-soft)}
 .row-split img{width:100%;aspect-ratio:2/1;object-fit:cover}
 .row-split .media-first{order:-1}
-@media (max-width:860px){
-  .announce{grid-template-columns:1fr;gap:24px}
-  .announce-text{text-align:center}
-}
+
 @media (max-width:760px){
   .row-split{grid-template-columns:1fr;gap:24px;margin-bottom:40px}
   .row-split .media-first,.row-split .media{order:-1}
@@ -656,8 +666,9 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .btn{font-size:16px}
   .announce h3,.feature h3{font-size:24px}
   .announce p,.feature p{font-size:18px}
-  .form label,.form input,.form textarea{font-size:16px}
+  .form label,.form input,.form textarea,.form .field label{font-size:16px}
   .form textarea{min-height:130px}
+  .contact-details p,.contact-details address{font-size:18px;line-height:27px}
   .lede,.prose,.band-narrow{font-size:18px}
   .header-tel{font-size:20px}
   .doc figcaption,.docpager-dl{font-size:18px;line-height:27px}
@@ -695,4 +706,5 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .hero{min-height:544px}
   .hero-medallion{width:min(280px,82vw);padding:41px}
   .hero-medallion h1{font-size:28px}
+  .announce-text{width:100%}
 }
