@@ -146,13 +146,17 @@ main{padding-top:var(--header-expanded)}
 }
 .nav-list > li > a:hover,.nav-list > li > button:hover{color:var(--blue)}
 .nav-list > li > a[aria-current=page]{color:var(--blue);font-weight:700;box-shadow:inset 0 -3px 0 var(--blue)}
+/* When the page you are on lives inside the dropdown, the original turns the
+   "More" button itself blue and bold. build.py already marks it; the rule for
+   it was missing, so it read like any other item. */
+.has-menu > button[aria-current=true]{color:var(--blue);font-weight:700}
 
 /* "More" dropdown */
 /* A two-border corner reads as a thin chevron and, unlike a solid triangle,
    can be rotated. At 45deg it points down; +180deg lands on up, and because
    the rotation is clockwise it sweeps through left on the way. */
 .has-menu > button::after{
-  content:'';display:inline-block;width:7px;height:7px;margin:0 0 3px 9px;
+  content:'';display:inline-block;width:7px;height:7px;margin:0 0 3px 15px;
   vertical-align:middle;
   border-right:2px solid currentColor;border-bottom:2px solid currentColor;
   transform:rotate(45deg);
