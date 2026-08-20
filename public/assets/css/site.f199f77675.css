@@ -216,14 +216,14 @@ main{padding-top:var(--header-expanded)}
 .prose-aside-right{display:grid;grid-template-columns:1fr calc((100% + 48px) / 3 - 48px);gap:48px;align-items:start;max-width:none}
 .prose-aside-right > .prose{margin:0;width:auto;max-width:none}
 .prose-aside-right img{width:100%;height:auto}
-@media (max-width:1120px){
-  .prose-aside-right{grid-template-columns:1fr;gap:24px;max-width:725px;margin:0 auto}
+@media (max-width:1023px){
+  .prose-aside-right{grid-template-columns:1fr;gap:24px;max-width:none}
 }
 /* Dress code: image column on the left, text on the right. */
 .prose-aside{display:grid;grid-template-columns:calc((100% + 48px) / 3 - 48px) 1fr;gap:48px;align-items:start;max-width:none}
 .prose-aside > .prose{margin:0;width:auto;max-width:none}
 .prose-aside img{width:100%;height:auto}
-@media (max-width:860px){
+@media (max-width:1023px){
   .prose-aside{grid-template-columns:1fr;gap:24px}
 }
 .prose h3{font-size:19px;margin-top:1.1em;margin-bottom:.3em}
@@ -721,6 +721,13 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:calc((100% + 48px) * 10 / 12 - 48px)}
   /* the van route block keeps eight of twelve here */
   .band-narrow.route{width:calc((100% + 48px) * 8 / 12 - 48px)}
+  /* a stacked aside's text column follows the band, not a fixed 725px */
+  .prose-aside > .prose,.prose-aside-right > .prose{
+    width:calc((100% + 48px) * 10 / 12 - 48px);margin:0 auto;
+  }
+  .prose-aside > img,.prose-aside-right > img{
+    width:calc((100% + 48px) * 10 / 12 - 48px);margin:0 auto;
+  }
   /* a landscape document keeps the whole column at every width */
   .doc--wide,.docpager.doc--wide{width:100%}
 }
@@ -734,6 +741,8 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .strip h2{flex:1 1 100%;font-size:28px}
   .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:100%}
   .band-narrow.route{width:100%}
+  .prose-aside > .prose,.prose-aside-right > .prose,
+  .prose-aside > img,.prose-aside-right > img{width:100%}
   /* Measured on the original: a 544px hero holding a 280px medallion whose
      heading drops to 28px — at 33px the four lines overflow the circle. */
   .hero{min-height:544px}
