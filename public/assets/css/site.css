@@ -150,14 +150,20 @@ main{padding-top:var(--header-expanded)}
   .has-menu > button::after{transition:none}
 }
 .submenu{
-  position:absolute;right:0;top:100%;min-width:260px;background:var(--white);
-  border:1px solid var(--line);border-radius:4px;box-shadow:0 3px 6px 3px rgba(0,0,0,.16);
-  list-style:none;margin:0;padding:6px 0;display:none;z-index:60;
-  max-height:45vh;overflow-y:auto;overscroll-behavior:contain;
+  position:absolute;right:0;top:100%;background:var(--white);
+  border-radius:4px;box-shadow:0 3px 6px 3px rgba(0,0,0,.24);
+  list-style:none;margin:0;padding:12px;display:none;z-index:60;
+  /* the original sizes the panel to its longest label rather than to a
+     min-width, so it is never wider than the words in it */
+  white-space:nowrap;
+  /* The original caps this at 45vh, which starts scrolling at five items on a
+     laptop window. Using the room actually below the header instead shows all
+     ten whenever the window can hold them, and still scrolls when it cannot. */
+  max-height:calc(100vh - 116px);overflow-y:auto;overscroll-behavior:contain;
 }
 .has-menu[data-open=true] .submenu{display:block}
-.submenu a{display:block;padding:11px 18px;font-size:18px;line-height:24px;color:var(--ink)}
-.submenu a:hover{background:var(--wash);color:var(--blue)}
+.submenu a{display:block;margin:8px 0;font-size:18px;line-height:1.5;color:var(--ink)}
+.submenu a:hover{color:var(--blue)}
 
 /* ============================================================
    Sections
@@ -462,8 +468,8 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .nav-list > li > a,.nav-list > li > button{padding:12px 0;font-size:16px;width:100%;text-align:left}
   .nav-list > li > a[aria-current=page]{box-shadow:none}
   .has-menu > button::after{float:right;margin-top:8px}
-  .submenu{position:static;border:0;box-shadow:none;padding:0 0 0 16px;min-width:0;max-height:none}
-  .submenu a{padding:10px 0;font-size:16px}
+  .submenu{position:static;box-shadow:none;padding:0 0 0 16px;max-height:none;white-space:normal}
+  .submenu a{margin:0;padding:10px 0;font-size:16px;line-height:24px}
 }
 @media (max-width:760px){
   .section{padding:40px 0}
