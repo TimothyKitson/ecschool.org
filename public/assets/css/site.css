@@ -174,7 +174,13 @@ main{padding-top:var(--header-expanded)}
   font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;
   color:var(--ink);margin:0 0 24px;text-align:center;
 }
-.lede{font-size:18px;color:var(--ink-soft);max-width:760px;margin:0 auto 32px;text-align:center}
+/* The original's intro line is body-sized and body-coloured, centred in the
+   same eight-of-twelve column as the form and the prose. */
+.lede{
+  font-size:16px;line-height:1.5;color:var(--ink-soft);
+  width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;
+  margin:0 auto 32px;text-align:center;
+}
 /* "Get in Touch!" above the contact form */
 .form-lede{
   font-family:var(--sans);font-size:22px;line-height:1.25;color:#151515;
@@ -182,7 +188,10 @@ main{padding-top:var(--header-expanded)}
 }
 
 /* Long-form prose */
-.prose{max-width:725px;margin:0 auto;font-size:16px;color:var(--ink-soft)}
+.prose{
+  width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto;
+  font-size:16px;line-height:1.5;color:var(--ink-soft);
+}
 .prose h2{font-size:24px;color:var(--blue);margin-top:1.4em;margin-bottom:.35em}
 .prose h3,.prose h4{color:var(--ink)}
 /* The original runs prose paragraphs together with no gap; headings provide
@@ -195,15 +204,15 @@ main{padding-top:var(--header-expanded)}
 .prose-left{margin-left:0}
 /* Text column with a 339px image column beside it, as the original used on
    the dress code (image left) and the archive letters (image right). */
-.prose-aside-right{display:grid;grid-template-columns:725px 339px;gap:48px;align-items:start;max-width:none}
-.prose-aside-right > .prose{margin:0}
+.prose-aside-right{display:grid;grid-template-columns:1fr calc((100% + 48px) / 3 - 48px);gap:48px;align-items:start;max-width:none}
+.prose-aside-right > .prose{margin:0;width:auto;max-width:none}
 .prose-aside-right img{width:100%;height:auto}
 @media (max-width:1120px){
   .prose-aside-right{grid-template-columns:1fr;gap:24px;max-width:725px;margin:0 auto}
 }
 /* Dress code: image column on the left, text on the right. */
-.prose-aside{display:grid;grid-template-columns:337px 1fr;gap:50px;align-items:start;max-width:none}
-.prose-aside > .prose{margin:0;max-width:725px}
+.prose-aside{display:grid;grid-template-columns:calc((100% + 48px) / 3 - 48px) 1fr;gap:48px;align-items:start;max-width:none}
+.prose-aside > .prose{margin:0;width:auto;max-width:none}
 .prose-aside img{width:100%;height:auto}
 @media (max-width:860px){
   .prose-aside{grid-template-columns:1fr;gap:24px}
@@ -334,7 +343,7 @@ main{padding-top:var(--header-expanded)}
 figure{margin:0 0 28px}
 figure img{border:1px solid var(--line)}
 figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
-.figure-side{float:right;width:min(340px,40%);margin:0 0 20px 28px}
+.figure-side{float:right;width:min(339px,40%);margin:0 0 20px 28px}
 
 /* ============================================================
    Footer
@@ -363,46 +372,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 /* ============================================================
    Responsive
    ============================================================ */
-/* The original scales the whole page in four steps, driven by the width of
-   its 12-column container. Measured off the live site at 1920/1440/1100/860:
 
-     >=1536   container 1280   section title 32   card 379   form 805
-     1280..   container 1160   section title 28   card 339   form 725
-     1024..   container  984   section title 26   card 280   form 608
-     <1024    container 100%   section title 26   (2 columns, form 10/12)
-     <768     container 100%   section title 25   (1 column,  form 12/12)
-
-   Everything below follows from that, so the bands are kept together here
-   rather than scattered through the file. */
-@media (min-width:1536px){
-  :root{--wrap:1280px}
-  .section-title{font-size:32px}
-  .hero-medallion h1{font-size:42px}
-  .strip h2{font-size:42px}
-  .btn{font-size:16px}
-  .announce h3,.feature h3{font-size:24px}
-  .announce p,.feature p{font-size:18px}
-  .form label,.form input,.form textarea{font-size:16px}
-  .form textarea{min-height:130px}
-}
-@media (max-width:1279px){
-  :root{--wrap:984px}
-  .section-title{font-size:26px}
-  .hero-medallion h1{font-size:33px}
-  .strip h2{font-size:33px}
-}
-/* Below the last fixed container width the page simply fills the viewport. */
-@media (max-width:1023px){
-  :root{--wrap:100%}
-  /* two of twelve columns wider, matching the original's tablet layout */
-  .form,.form-lede,.contact-details{width:calc((100% + 48px) * 10 / 12 - 48px)}
-}
-@media (max-width:767px){
-  .section-title{font-size:25px}
-  .strip-inner{flex-wrap:wrap}
-  .strip h2{flex:1 1 100%;font-size:28px}
-  .form,.form-lede,.contact-details{width:100%}
-}
 @media (max-width:1023px){
   .hero{min-height:560px}
   .hero-medallion{width:400px;padding:59px}
@@ -498,7 +468,12 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 .band-split img{width:100%;height:auto;border:1px solid var(--line)}
 .band-text{font-size:16px;color:var(--ink-soft)}
 .band-text p:last-child{margin-bottom:0}
-.band-narrow{max-width:726px;margin:0 auto;font-size:16px;color:var(--ink-soft)}
+/* Eight of twelve columns, like the prose column, so it tracks the container
+   at every width instead of stopping at a fixed 726px. */
+.band-narrow{
+  width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto;
+  font-size:16px;line-height:1.5;color:var(--ink-soft);
+}
 .band-narrow p:last-child{margin-bottom:0}
 .band-wide img{width:100%;height:auto;border:1px solid var(--line);background:var(--white)}
 .band-wide > figure{margin:0 0 32px}
@@ -506,6 +481,12 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 @media (max-width:860px){
   .band-split{grid-template-columns:1fr;gap:24px}
   .band-split .band-media{order:-1}
+}
+
+/* The original's plain sans sub-heading, used inside a prose column. */
+.sub-title{
+  font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;
+  color:#151515;margin:0 0 24px;
 }
 
 /* ---------- Legal / policy prose (reporting, wellness policy) ----------
@@ -536,6 +517,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 /* Measured on the original: these are bold runs in the body colour at the
    body size, not headings in the heading colour. The one exception is the
    "Appearance" pair, which is a light 32px sans line. */
+.dress-prose{font-size:18px}
 .dress-prose h2,.dress-prose h3{font-family:var(--sans);color:var(--ink-soft)}
 .dress-prose h2{font-size:18px;line-height:27px;font-weight:700;text-decoration:underline;margin:1em 0 0}
 .dress-prose h3{font-size:18px;line-height:27px;font-weight:700;margin:1em 0 0}
@@ -641,3 +623,57 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 .videocard-link:hover .videocard-play,
 .videocard-link:focus-visible .videocard-play{background:#c00}
 .videocard figcaption{text-align:center;font-size:15px;margin-top:14px;word-break:break-all}
+
+/* ============================================================
+   Responsive bands — kept last so they win over the rules above
+   ============================================================ */
+/* The original scales the whole page in four steps, driven by the width of
+   its 12-column container. Measured off the live site at 1920/1440/1100/860:
+
+     >=1536   container 1280   section title 32   card 379   form 805
+     1280..   container 1160   section title 28   card 339   form 725
+     1024..   container  984   section title 26   card 280   form 608
+     <1024    container 100%   section title 26   (2 columns, form 10/12)
+     <768     container 100%   section title 25   (1 column,  form 12/12)
+
+   Everything below follows from that, so the bands are kept together here
+   rather than scattered through the file. */
+@media (min-width:1536px){
+  :root{--wrap:1280px}
+  .section-title{font-size:32px}
+  .hero-medallion h1{font-size:42px}
+  .strip h2{font-size:42px}
+  .btn{font-size:16px}
+  .announce h3,.feature h3{font-size:24px}
+  .announce p,.feature p{font-size:18px}
+  .form label,.form input,.form textarea{font-size:16px}
+  .form textarea{min-height:130px}
+  .lede,.prose,.band-narrow{font-size:18px}
+  .page-title,.sub-title,.person h2,.contact-details h3,.form-lede,.row-split h2{font-size:24px}
+  .legal-prose h2,.legal-prose h3,.legal-prose h4{font-size:18px;line-height:27px}
+  .legal-prose h2.legal-lead{font-size:36px;line-height:45px}
+  .dress-prose{font-size:20px}
+  .dress-prose h2,.dress-prose h3{font-size:20px;line-height:30px}
+  .dress-prose h2.dc-major{font-size:36px;line-height:45px}
+  .prose h2{font-size:27px}
+  .prose h3{font-size:21px}
+  figcaption{font-size:16px;line-height:24px}
+}
+@media (max-width:1279px){
+  :root{--wrap:984px}
+  .section-title{font-size:26px}
+  .hero-medallion h1{font-size:33px}
+  .strip h2{font-size:33px}
+}
+/* Below the last fixed container width the page simply fills the viewport. */
+@media (max-width:1023px){
+  :root{--wrap:100%}
+  /* two of twelve columns wider, matching the original's tablet layout */
+  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose{width:calc((100% + 48px) * 10 / 12 - 48px)}
+}
+@media (max-width:767px){
+  .section-title{font-size:25px}
+  .strip-inner{flex-wrap:wrap}
+  .strip h2{flex:1 1 100%;font-size:28px}
+  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose{width:100%}
+}
