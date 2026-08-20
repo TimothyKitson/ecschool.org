@@ -314,14 +314,14 @@ main{padding-top:var(--header-expanded)}
    beneath both, so a two-line time pushes the address down the way it does
    on the original. */
 .stops li{
-  display:grid;grid-template-columns:1fr auto;
+  display:grid;grid-template-columns:1fr 25%;
   grid-template-areas:"name time" "addr addr";
   column-gap:24px;row-gap:8px;padding:24px 0;margin:0;
 }
 .stops .stop{display:contents}
 .stops b{grid-area:name;font-weight:400;font-size:22px;line-height:1.25;color:var(--ink)}
 .stops em{grid-area:addr;font-style:normal;font-size:16px;line-height:1.5;color:var(--ink-soft)}
-.stops .time{grid-area:time;max-width:181px;font-size:22px;line-height:22px;color:var(--ink);text-align:right}
+.stops .time{grid-area:time;font-size:22px;line-height:22px;color:var(--ink);text-align:right}
 
 /* ---------- Contact form ---------- */
 .form{width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto}
@@ -686,7 +686,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    rather than scattered through the file. */
 @media (min-width:1536px){
   :root{--wrap:1280px}
-  .section-title{font-size:32px}
+  .section-title,.route h3{font-size:32px}
   .hero-medallion h1{font-size:42px}
   .strip h2{font-size:42px}
   .btn{font-size:16px}
@@ -710,7 +710,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 }
 @media (max-width:1279px){
   :root{--wrap:984px}
-  .section-title{font-size:26px}
+  .section-title,.route h3{font-size:26px}
   .hero-medallion h1{font-size:33px}
   .strip h2{font-size:33px}
 }
@@ -719,14 +719,21 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   :root{--wrap:100%}
   /* two of twelve columns wider, matching the original's tablet layout */
   .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:calc((100% + 48px) * 10 / 12 - 48px)}
+  /* the van route block keeps eight of twelve here */
+  .band-narrow.route{width:calc((100% + 48px) * 8 / 12 - 48px)}
   /* a landscape document keeps the whole column at every width */
   .doc--wide,.docpager.doc--wide{width:100%}
 }
 @media (max-width:767px){
-  .section-title{font-size:25px}
+  .section-title,.route h3{font-size:25px}
+  /* Below 768 the original stacks each stop: name, then the time under it
+     left-aligned, then the address. */
+  .stops li{grid-template-columns:1fr;grid-template-areas:"name" "time" "addr";row-gap:7px}
+  .stops .time{text-align:left}
   .strip-inner{flex-wrap:wrap}
   .strip h2{flex:1 1 100%;font-size:28px}
   .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:100%}
+  .band-narrow.route{width:100%}
   /* Measured on the original: a 544px hero holding a 280px medallion whose
      heading drops to 28px — at 33px the four lines overflow the circle. */
   .hero{min-height:544px}
