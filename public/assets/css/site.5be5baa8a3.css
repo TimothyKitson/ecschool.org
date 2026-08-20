@@ -521,6 +521,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .band-split .band-media{order:-1}
   /* stacked: the image runs full width, the text takes the band fraction */
   .band-split .band-text{width:calc((100% + 48px) * 10 / 12 - 48px);margin:0 auto}
+  .band-split figcaption{text-align:center}
 }
 @media (max-width:767px){
   .band-split .band-text{width:100%}
@@ -552,6 +553,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 /* The reporting and non-discrimination text is a shade darker than the site
    default, and its bold runs stay that same colour rather than going dark. */
 .prose--575,.prose--575 strong{color:#575757}
+.prose--575 a,.prose--575 a strong{color:var(--blue)}
 /* One big blue line opens the wellness policy. */
 .legal-prose h2.legal-lead{
   font-size:32px;line-height:40px;font-weight:700;color:var(--blue);margin:0 0 24px;
@@ -696,6 +698,9 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .prose.dress-prose h2,.prose.dress-prose h3{font-size:20px;line-height:30px}
   .prose.dress-prose h2.dc-major{font-size:36px;line-height:45px}
   .person .role{font-size:18px;line-height:27px}
+  .stops b{font-size:24px;line-height:30px}
+  .stops .time{font-size:24px;line-height:24px}
+  .stops em{font-size:18px;line-height:27px}
   figcaption{font-size:16px;line-height:24px}
 }
 @media (max-width:1279px){

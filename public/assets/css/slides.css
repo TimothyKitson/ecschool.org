@@ -318,7 +318,7 @@
   .ecs-arrow:disabled{ opacity:0; pointer-events:none; }
 
   .ecs-trail{
-    position:absolute; left:50%; bottom:20px; transform:translateX(-50%);
+    position:absolute; left:50%; bottom:13px; transform:translateX(-50%);
     z-index:9; display:flex; align-items:center; gap:5px;
     max-width:70vw;
   }
@@ -355,7 +355,8 @@
 
   /* ---------- "Show in handbook" jump link ---------- */
   .ecs-hblink{
-    position:absolute; bottom:20px; right:84px;
+    /* centred along the bottom edge, clear of the trail dots below it */
+    position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
     z-index:3;
     display:inline-flex; align-items:center; gap:10px;
     padding:9px 16px;
@@ -375,8 +376,8 @@
     border-left:1px solid currentColor;
     font-weight:600; opacity:.8;
   }
-  /* Keep the deck's own footnote clear of the pill. */
-  .ecs-slide.has-hblink .ecs-footnote{ padding-right:210px; }
+  /* Keep the slide's own content clear of the centred pill. */
+  .ecs-slide.has-hblink .ecs-slide-inner{ padding-bottom:86px; }
 
   /* ---------- chrome over a light slide ---------- */
   /* The white controls below vanish against the light content slides, so
@@ -404,8 +405,8 @@
   .ecs-shell.on-light .ecs-rotate-hint{ color:rgba(6,26,56,.55); }
 
   /* Three rows of cards need less room per card to stay inside the canvas. */
-  .ecs-grid.dense{ gap:14px; }
-  .ecs-grid.dense .ecs-card{ padding:16px 20px; gap:6px; border-radius:13px; }
+  .ecs-grid.dense{ gap:12px; }
+  .ecs-grid.dense .ecs-card{ padding:14px 20px; gap:5px; border-radius:13px; }
   .ecs-grid.dense .ecs-card .icn{ width:32px; height:32px; border-radius:10px; margin-bottom:2px; }
   .ecs-grid.dense .ecs-card .icn svg{ width:17px; height:17px; }
 
