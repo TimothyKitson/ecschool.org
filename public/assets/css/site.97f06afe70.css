@@ -225,7 +225,8 @@ main{padding-top:var(--header-expanded)}
 /* Long-form prose */
 .prose{
   width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto;
-  font-size:16px;line-height:1.5;color:var(--ink-soft);
+  /* measured on the original: rgb(87,87,87) for body copy */
+  font-size:16px;line-height:1.5;color:#575757;
 }
 .prose h2{font-size:24px;color:var(--blue);margin-top:1.4em;margin-bottom:.35em}
 .prose h3,.prose h4{color:var(--ink)}
@@ -352,7 +353,8 @@ main{padding-top:var(--header-expanded)}
   column-gap:24px;row-gap:8px;padding:24px 0;margin:0;
 }
 .stops .stop{display:contents}
-.stops b{grid-area:name;font-weight:400;font-size:22px;line-height:1.25;color:var(--ink)}
+/* rgb(21,21,21) on the original, a shade darker than the body ink */
+.stops b{grid-area:name;font-weight:400;font-size:22px;line-height:1.25;color:#151515}
 .stops em{grid-area:addr;font-style:normal;font-size:16px;line-height:1.5;color:var(--ink-soft)}
 .stops .time{grid-area:time;font-size:22px;line-height:22px;color:var(--ink);text-align:right}
 
@@ -574,7 +576,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
 
 /* STEM competition entries: one full-width, then two across, each centred
    in its cell — the shape the original's video grid had. */
-.stem-item{text-align:center;font-size:16px;line-height:1.5;color:var(--ink-soft)}
+.stem-item{text-align:center;font-size:16px;line-height:1.5;color:#575757}
 .stem-item p{margin:0}
 .stem-item .sub-title{margin:0 0 8px}
 .stem-grid{margin-top:40px}
@@ -592,6 +594,10 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    default, and its bold runs stay that same colour rather than going dark. */
 .prose--575,.prose--575 strong{color:#575757}
 .prose--575 a,.prose--575 a strong{color:var(--blue)}
+/* That rule is class+type and outranks a bare .btn, which painted these
+   buttons' labels the same blue as their background - invisible text on
+   /college-info. Two classes wins wherever this sits in the file. */
+.prose--575 a.btn{color:var(--white)}
 /* One big blue line opens the wellness policy. */
 .legal-prose h2.legal-lead{
   font-size:32px;line-height:40px;font-weight:700;color:var(--blue);margin:0 0 24px;
@@ -710,6 +716,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
    rather than scattered through the file. */
 @media (min-width:1536px){
   :root{--wrap:1280px}
+  .row-split p{font-size:18px}
   /* 8px more here, the same measurement taken at 1920 */
   .contact-details{margin-top:72px}
   /* the original's nav type steps up only here */
