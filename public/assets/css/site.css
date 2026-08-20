@@ -520,11 +520,20 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .band-split .band-media{order:-1}
 }
 
-/* The original's plain sans sub-heading, used inside a prose column. */
-.sub-title{
+/* The original's plain sans sub-heading, used inside a prose column. The
+   .prose descendant selector is there so it beats .prose h2 / .prose h3. */
+.sub-title,.prose .sub-title,.legal-prose .sub-title{
   font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.25;
-  color:#151515;margin:0 0 24px;
+  color:var(--ink);margin:0 0 24px;
 }
+
+/* STEM competition entries: one full-width, then two across, each centred
+   in its cell — the shape the original's video grid had. */
+.stem-item{text-align:center;font-size:16px;line-height:1.5;color:var(--ink-soft)}
+.stem-item p{margin:0}
+.stem-item .sub-title{margin:0 0 8px}
+.stem-grid{margin-top:40px}
+.stem-grid .stem-item + .stem-item{margin-top:0}
 
 /* ---------- Legal / policy prose (reporting, wellness policy) ----------
    The original sets these pages as one run of body text: the sub-headings are
