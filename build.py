@@ -95,6 +95,8 @@ PAGES = {
                            'A letter from the administrator of Englewood Christian School.'),
     '404': ('Page Not Found', 'That page could not be found.'),
     'thanks': ('Thank You', 'Your message has been sent.'),
+    'thanks-application': ('Application Received',
+                           'Thank you for applying to Englewood Christian School.'),
 }
 
 # slug -> url used for aria-current matching

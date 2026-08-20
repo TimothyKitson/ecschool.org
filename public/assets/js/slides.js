@@ -264,6 +264,7 @@
       ]
     },
     { type:'timeline',
+      href:'/calendar', linkLabel:'Show in calendar',
       kicker:'Before You Go', title:'Key Dates',
       items:[
         {d:'August 3', l:'Staff returns'},
@@ -485,14 +486,22 @@
     // "Show in handbook" — jumps the handbook page-viewer on this same page to
     // the printed page the slide summarises. A real link so it still works
     // (as an anchor to the viewer) if the handler never runs.
-    if(s.page){
+    if(s.page || s.href){
       var jump = document.createElement('a');
       jump.className = 'ecs-hblink';
-      jump.href = '#doc-2026-2027-Handbook';
-      jump.setAttribute('data-doc-target','doc-2026-2027-Handbook');
-      jump.setAttribute('data-doc-page', String(s.page));
-      jump.innerHTML = 'Show in handbook <span aria-hidden="true">&rarr;</span>' +
-        '<span class="ecs-hbpage">p.&nbsp;' + s.page + '</span>';
+      if(s.page){
+        jump.href = '#doc-2026-2027-Handbook';
+        jump.setAttribute('data-doc-target','doc-2026-2027-Handbook');
+        jump.setAttribute('data-doc-page', String(s.page));
+        jump.innerHTML = 'Show in handbook <span aria-hidden="true">&rarr;</span>' +
+          '<span class="ecs-hbpage">p.&nbsp;' + s.page + '</span>';
+      } else {
+        // A slide whose subject lives on another page of the site rather than
+        // in the handbook: an ordinary link, so it just navigates.
+        jump.href = s.href;
+        jump.innerHTML = (s.linkLabel || 'Read more') +
+          ' <span aria-hidden="true">&rarr;</span>';
+      }
       div.appendChild(jump);
       div.classList.add('has-hblink');
     }
@@ -564,7 +573,15 @@
     var rotate = isMobileViewport() && h > w; // portrait phone -> show it landscape
     var availW = rotate ? h : w;
     var availH = rotate ? w : h;
-    var scale = Math.min(availW/1280, availH/720);
+    var sw = availW/1280, sh = availH/720;
+    // In the page the box is a CSS 16:9 aspect-ratio, so these two are equal
+    // in theory and differ only by sub-pixel rounding — and at some browser
+    // zoom levels the height came out a hair smaller, which scaled the canvas
+    // narrower than its box and left a dark hairline down each side. When the
+    // box is 16:9 to within a percent, fill the width and let the shell's
+    // overflow:hidden absorb the fraction of a pixel. Fullscreen is genuinely
+    // not 16:9, so there it still has to fit inside both dimensions.
+    var scale = Math.abs(sw - sh) / Math.max(sw, sh) < 0.01 ? sw : Math.min(sw, sh);
     document.getElementById('ecsCanvas').style.transform =
       (rotate ? 'rotate(90deg) ' : '') + 'scale('+scale+')';
   }

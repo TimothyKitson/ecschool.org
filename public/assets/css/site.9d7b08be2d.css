@@ -355,6 +355,61 @@ main{padding-top:var(--header-expanded)}
 .form-note{font-size:12px;color:var(--ink-soft);text-align:center;margin:16px 0 0}
 .hp{position:absolute;left:-9999px}
 
+/* ---------- Application form (registration) ---------- */
+/* The page this replaces embedded a JotForm, which stacks its labels above
+   each field. Several of the questions here are full sentences, which cannot
+   float inside a 48px box, so this form keeps that stacked layout instead of
+   the contact form's floating labels. */
+.form-app{width:calc((100% + 48px) * 8 / 12 - 48px);max-width:none;margin:0 auto}
+.form-app fieldset{border:0;margin:0;padding:0;min-width:0}
+.form-app > fieldset{margin:0 0 44px}
+.form-app > fieldset > legend{
+  font-family:var(--sans);font-size:22px;line-height:1.25;color:#151515;
+  padding:0;margin:0 0 20px;
+}
+.form-app .fieldset-note{font-size:14px;line-height:21px;color:var(--ink-soft);margin:-8px 0 24px}
+.form-app .field{position:relative;margin:0 0 20px}
+.form-app label{display:block;margin:0 0 6px;font-size:14px;line-height:20px;color:#151515;font-weight:700}
+.form-app .hint,.form-app .hint-inline{font-size:12px;line-height:18px;color:var(--ink-soft);font-weight:400}
+.form-app .hint{display:block;margin:5px 0 0}
+.form-app .req{color:#b3261e}
+.form-app input,.form-app select,.form-app textarea{
+  width:100%;padding:11px 10px;font:inherit;font-size:14px;line-height:22px;color:#474747;
+  background:var(--white);border:1px solid #dadada;border-radius:4px;margin:0;
+}
+.form-app input{height:46px}
+.form-app textarea{min-height:76px;resize:vertical}
+.form-app select{height:46px;padding:11px 8px}
+.form-app input:focus,.form-app select:focus,.form-app textarea:focus{
+  border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(5,68,164,.12);
+}
+/* Side-by-side fields: name pairs, and the city / state / zip line. */
+.form-app .row{display:grid;gap:16px}
+.form-app .row-2{grid-template-columns:1fr 1fr}
+.form-app .row-3{grid-template-columns:2fr 1fr 1fr}
+/* A question whose answer is a set of radios: the question is the legend, so
+   a screen reader reads it with each option. */
+.form-app .qgroup{margin:0 0 22px}
+.form-app .q,.form-app legend.q{
+  display:block;float:none;padding:0;margin:0 0 8px;
+  font-size:14px;line-height:21px;font-weight:700;color:#151515;
+}
+.form-app .choices{display:flex;flex-wrap:wrap;gap:10px 28px}
+.form-app .choice,.form-app .agree{
+  display:flex;align-items:flex-start;gap:9px;margin:0 0 10px;
+  font-size:14px;line-height:21px;font-weight:400;color:var(--ink);cursor:pointer;
+}
+.form-app .choice{margin:0}
+.form-app .choice input,.form-app .agree input{
+  width:17px;height:17px;flex:0 0 17px;margin:2px 0 0;padding:0;
+  accent-color:var(--blue);border-radius:0;box-shadow:none;
+}
+/* The agreements are paragraphs of policy rather than field labels, so they
+   read as body text with the radios under them. */
+.form-app .agree-group{margin-top:26px}
+.form-app .agree-group > legend.q{font-weight:400;color:var(--ink);margin-bottom:10px}
+.form-app .actions{text-align:center;margin-top:8px}
+
 /* ---------- Embeds (JotForm / Wufoo / Vimeo) ---------- */
 .embed{max-width:900px;margin:0 auto}
 .embed iframe{width:100%;border:0;display:block}
@@ -679,6 +734,11 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .announce h3,.feature h3{font-size:24px}
   .announce p,.feature p{font-size:18px}
   .form label,.form input,.form textarea,.form .field label{font-size:16px}
+  .form-app input,.form-app select,.form-app textarea,
+  .form-app label,.form-app .q,.form-app legend.q,
+  .form-app .choice,.form-app .agree{font-size:16px}
+  .form-app > fieldset > legend{font-size:24px}
+  .form-app .fieldset-note,.form-app .hint,.form-app .hint-inline{font-size:14px;line-height:21px}
   .form textarea{min-height:130px}
   .contact-details p,.contact-details address{font-size:18px;line-height:27px}
   .lede,.prose,.band-narrow{font-size:18px}
@@ -716,7 +776,7 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   /* the original stacks the copyright bar's two lines, each centred */
   .footer-bar .wrap{flex-direction:column;align-items:center;text-align:center;gap:8px}
   /* two of twelve columns wider, matching the original's tablet layout */
-  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:calc((100% + 48px) * 10 / 12 - 48px)}
+  .form,.form-app,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:calc((100% + 48px) * 10 / 12 - 48px)}
   /* the van route block keeps eight of twelve here */
   .band-narrow.route{width:calc((100% + 48px) * 8 / 12 - 48px)}
   /* a stacked aside's text column follows the band, not a fixed 725px */
@@ -738,8 +798,11 @@ figcaption{font-size:14px;line-height:21px;color:#525252;margin-top:8px}
   .stops .time{text-align:left}
   .strip-inner{flex-wrap:wrap}
   .strip h2{flex:1 1 100%;font-size:28px}
-  .form,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:100%}
+  .form,.form-app,.form-lede,.contact-details,.lede,.band-narrow,.prose,.doc,.docpager{width:100%}
   .band-narrow.route{width:100%}
+  /* no room for two or three fields on a line on a phone */
+  /* stacked, so each field spaces itself with its own margin */
+  .form-app .row-2,.form-app .row-3{grid-template-columns:1fr;gap:0}
   .prose-aside > .prose,.prose-aside-right > .prose,
   .prose-aside > img,.prose-aside-right > img{width:100%}
   /* Measured on the original: a 544px hero holding a 280px medallion whose

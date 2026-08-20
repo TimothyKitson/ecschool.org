@@ -1,10 +1,247 @@
 <section class="section">
   <div class="wrap">
-    <h1 class="sr-only">Registration</h1>
-    <div class="embed">
-      <iframe src="https://form.jotform.com/243454626951058" title="Englewood Christian School New Student Application" height="1200" allow="geolocation; microphone; camera; fullscreen" loading="lazy"></iframe>
-      <p class="form-note">Trouble with the form? <a href="https://form.jotform.com/243454626951058" target="_blank" rel="noopener">Open the application in a new window</a>.</p>
-    </div>
+    <h1 class="page-title">New Student Application</h1>
+    <p class="lede">Please read our Statement of Faith and our <a href="/handbook">ECS Handbook</a> before filling out this application, as you will be required to agree to both before you submit it. Thank you.</p>
 
+    <form class="form-app" name="registration" method="POST" action="/thanks-application"
+          data-netlify="true" netlify-honeypot="bot-field">
+      <p class="hp"><label>Do not fill this in: <input name="bot-field"></label></p>
+
+      <fieldset>
+        <legend>Tell Us About Your Student</legend>
+
+        <p class="field">
+          <label for="app-date">Date of Application <span class="req" aria-hidden="true">*</span></label>
+          <input id="app-date" name="Date of Application" type="date" required>
+          <span class="hint">Please enter today&rsquo;s date.</span>
+        </p>
+
+        <div class="row row-2">
+          <p class="field">
+            <label for="stu-first">Student First Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="stu-first" name="Student First Name" type="text" autocomplete="off" required>
+          </p>
+          <p class="field">
+            <label for="stu-last">Student Last Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="stu-last" name="Student Last Name" type="text" autocomplete="off" required>
+          </p>
+        </div>
+
+        <p class="field">
+          <label for="stu-street">Student Street Address <span class="req" aria-hidden="true">*</span></label>
+          <input id="stu-street" name="Student Street Address" type="text" autocomplete="off" required>
+        </p>
+        <p class="field">
+          <label for="stu-street2">Street Address Line 2</label>
+          <input id="stu-street2" name="Student Street Address Line 2" type="text" autocomplete="off">
+        </p>
+        <div class="row row-3">
+          <p class="field">
+            <label for="stu-city">City <span class="req" aria-hidden="true">*</span></label>
+            <input id="stu-city" name="Student City" type="text" autocomplete="off" required>
+          </p>
+          <p class="field">
+            <label for="stu-state">State <span class="req" aria-hidden="true">*</span></label>
+            <input id="stu-state" name="Student State" type="text" autocomplete="off" required>
+          </p>
+          <p class="field">
+            <label for="stu-zip">Zip Code <span class="req" aria-hidden="true">*</span></label>
+            <input id="stu-zip" name="Student Zip Code" type="text" inputmode="numeric" autocomplete="off" required>
+          </p>
+        </div>
+
+        <div class="row row-2">
+          <p class="field">
+            <label for="stu-gender">Student Gender <span class="req" aria-hidden="true">*</span></label>
+            <select id="stu-gender" name="Student Gender" required>
+              <option value="" selected>Please Select</option>
+              <option>Female</option>
+              <option>Male</option>
+            </select>
+          </p>
+          <p class="field">
+            <label for="stu-dob">Student Birthday <span class="req" aria-hidden="true">*</span></label>
+            <input id="stu-dob" name="Student Birthday" type="date" required>
+          </p>
+        </div>
+
+        <p class="field">
+          <label for="last-grade">Last Grade Completed <span class="req" aria-hidden="true">*</span></label>
+          <input id="last-grade" name="Last Grade Completed" type="text" required>
+        </p>
+
+        <p class="field">
+          <label for="last-school">Last School Attended <span class="req" aria-hidden="true">*</span></label>
+          <input id="last-school" name="Last School Attended" type="text" required>
+          <span class="hint">If home-schooled please type &ldquo;home-schooled&rdquo; above.</span>
+        </p>
+
+        <p class="field">
+          <label for="school-contact">School Contact Information</label>
+          <textarea id="school-contact" name="School Contact Information" rows="3"></textarea>
+          <span class="hint">Please give phone number, address, and email.</span>
+        </p>
+
+        <p class="field">
+          <label for="q-independent">Is your student able to work at her or his grade level independently? If not, please state why. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q-independent" name="Able to work at grade level independently" rows="3" required></textarea>
+        </p>
+        <p class="field">
+          <label for="q-read">Is your student able to read at his or her grade level without assistance? If not, please state why. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q-read" name="Able to read at grade level without assistance" rows="3" required></textarea>
+        </p>
+        <p class="field">
+          <label for="q-write">Is your student able to write at his or her grade level without assistance? If not, please state why. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q-write" name="Able to write at grade level without assistance" rows="3" required></textarea>
+        </p>
+        <p class="field">
+          <label for="q-challenges">Does your student have any challenges that may impact her or his academic progress or school-day behaviors? <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q-challenges" name="Challenges affecting progress or behavior" rows="3" required></textarea>
+        </p>
+        <p class="field">
+          <label for="q-learning">Does your student face any significant challenges to learning that we need to be aware of? If so, please explain. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="q-learning" name="Significant challenges to learning" rows="3" required></textarea>
+        </p>
+
+        <!-- A radio group's question is its legend, so the question is read out
+             with each option instead of being a floating label above them. -->
+        <fieldset class="qgroup">
+          <legend class="q">Does your student function under an IEP (Individualized Education Plan)? <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="Functions under an IEP" value="Yes" required> Yes</label>
+            <label class="choice"><input type="radio" name="Functions under an IEP" value="No"> No</label>
+            <label class="choice"><input type="radio" name="Functions under an IEP" value="In Process"> In Process</label>
+          </span>
+        </fieldset>
+
+        <fieldset class="qgroup">
+          <legend class="q">Is your student able to use bathroom facilities without assistance? <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="Able to use bathroom facilities without assistance" value="Yes" required> Yes</label>
+            <label class="choice"><input type="radio" name="Able to use bathroom facilities without assistance" value="No"> No</label>
+          </span>
+        </fieldset>
+
+        <p class="field">
+          <label for="allergies">List any known allergies your student may have. <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="allergies" name="Known allergies" rows="2" required></textarea>
+          <span class="hint">If none, type &ldquo;none.&rdquo;</span>
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tell Us About Yourself</legend>
+
+        <fieldset class="qgroup">
+          <legend class="q">Are you the student&rsquo;s legal guardian? <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="Legal guardian" value="Yes" required> Yes</label>
+            <label class="choice"><input type="radio" name="Legal guardian" value="No"> No</label>
+          </span>
+        </fieldset>
+
+        <div class="row row-2">
+          <p class="field">
+            <label for="you-first">Your First Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="you-first" name="Your First Name" type="text" autocomplete="given-name" required>
+          </p>
+          <p class="field">
+            <label for="you-last">Your Last Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="you-last" name="Your Last Name" type="text" autocomplete="family-name" required>
+          </p>
+        </div>
+
+        <p class="field">
+          <label for="you-street">Your Street Address <span class="hint-inline">(if different from student address)</span></label>
+          <input id="you-street" name="Your Street Address" type="text" autocomplete="address-line1">
+        </p>
+        <p class="field">
+          <label for="you-street2">Street Address Line 2</label>
+          <input id="you-street2" name="Your Street Address Line 2" type="text" autocomplete="address-line2">
+        </p>
+        <div class="row row-3">
+          <p class="field">
+            <label for="you-city">City</label>
+            <input id="you-city" name="Your City" type="text" autocomplete="address-level2">
+          </p>
+          <p class="field">
+            <label for="you-state">State</label>
+            <input id="you-state" name="Your State" type="text" autocomplete="address-level1">
+          </p>
+          <p class="field">
+            <label for="you-zip">Zip Code</label>
+            <input id="you-zip" name="Your Zip Code" type="text" inputmode="numeric" autocomplete="postal-code">
+          </p>
+        </div>
+
+        <div class="row row-2">
+          <p class="field">
+            <label for="you-phone">Your Phone Number <span class="req" aria-hidden="true">*</span></label>
+            <input id="you-phone" name="Your Phone Number" type="tel" autocomplete="tel" required>
+          </p>
+          <p class="field">
+            <label for="you-email">Your Email <span class="req" aria-hidden="true">*</span></label>
+            <input id="you-email" name="Your Email" type="email" autocomplete="email" required>
+          </p>
+        </div>
+
+        <p class="field">
+          <label for="why-ecs">Why do you feel Englewood Christian School is the school for your student? <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="why-ecs" name="Why Englewood Christian School" rows="5" required></textarea>
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Acknowledgements</legend>
+        <p class="fieldset-note">Please check the boxes below to indicate that you have read, understand, and agree to comply with the policies and statements below. Our policies, <a href="/handbook">handbook</a>, and other information are available on this website.</p>
+
+        <p class="q">I have read and agree to comply with and abide by the following: <span class="req" aria-hidden="true">*</span></p>
+        <label class="agree"><input type="checkbox" name="Agrees to Statement of Faith" value="I Agree" required> The Statement of Faith for Englewood Christian School</label>
+        <label class="agree"><input type="checkbox" name="Agrees to Handbook" value="I Agree" required> The Englewood Christian School Handbook</label>
+
+        <fieldset class="qgroup agree-group">
+          <legend class="q">I understand that Englewood Christian School (ECS) is a Christian School and that its tenets, methods, and rules are established upon that basis. I understand that the curriculum, activities, and general atmosphere of Englewood Christian School is presented from a Biblical foundation and that my child will receive Biblical, spiritual teaching and instruction as part of their academic lives at ECS. I also realize that ECS is a Protestant, non-denominational school and that my student&rsquo;s instruction will be based on this fact. <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="Christian school acknowledgement" value="I Agree" required> I Agree</label>
+            <label class="choice"><input type="radio" name="Christian school acknowledgement" value="I Disagree"> I Disagree</label>
+          </span>
+        </fieldset>
+
+        <fieldset class="qgroup agree-group">
+          <legend class="q">I give my permission for my student to take part in all school activities, and school-sponsored trips away from the school premises, and absolve the school, Church, all affiliates, and employees from liability to me or my student because of any injury to my student at school or during any school activity, and school sponsored trips. <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="Activities and trips permission" value="I Agree" required> I Agree</label>
+            <label class="choice"><input type="radio" name="Activities and trips permission" value="I Disagree"> I Disagree</label>
+          </span>
+        </fieldset>
+
+        <fieldset class="qgroup agree-group">
+          <legend class="q">I understand that ECS protects its student and staff through the use of recording devices like security cameras. I also understand that ECS uses photographs, videos, and other media to advertise themselves, populate their webpage, and as added materials to yearbooks and other school publications. As such, I give permission for ECS to use any photo and/or video of my child for display and/or publication in perpetuity. <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="Photo and video permission" value="I Agree" required> I Agree</label>
+            <label class="choice"><input type="radio" name="Photo and video permission" value="I Disagree"> I Disagree</label>
+          </span>
+        </fieldset>
+
+        <fieldset class="qgroup agree-group">
+          <legend class="q">I hereby agree to support all regulations of the school on behalf of my student and authorize this school to employ and to discipline as it deems wise and expedient for the training of my student. I understand that the school reserves the right to dismiss any student who fails to comply with the established regulations and discipline or whose financial obligation remains unpaid. <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="School regulations agreement" value="I Agree" required> I Agree</label>
+            <label class="choice"><input type="radio" name="School regulations agreement" value="I Disagree"> I Disagree</label>
+          </span>
+        </fieldset>
+
+        <fieldset class="qgroup agree-group">
+          <legend class="q">By checking &ldquo;I Agree&rdquo; below, I acknowledge that I have filled out this form accurately and honestly and that I have not withheld any critical information from Englewood Christian School that might impact its enrollment decision related to my student. <span class="req" aria-hidden="true">*</span></legend>
+          <span class="choices">
+            <label class="choice"><input type="radio" name="Accuracy acknowledgement" value="I Agree" required> I Agree</label>
+            <label class="choice"><input type="radio" name="Accuracy acknowledgement" value="I Disagree"> I Disagree</label>
+          </span>
+        </fieldset>
+      </fieldset>
+
+      <div class="actions"><button class="btn" type="submit">Submit Application</button></div>
+      <p class="form-note">Questions about the application? Call us at <a href="tel:+19412085773">(941) 208-5773</a>.</p>
+    </form>
   </div>
 </section>
